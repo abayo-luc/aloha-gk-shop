@@ -1,6 +1,9 @@
 <template>
   <div>
     <top-header />
+    <main>
+      <nuxt />
+    </main>
   </div>
 </template>
 <script>
