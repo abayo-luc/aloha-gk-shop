@@ -29,9 +29,11 @@ export default {
   ** Global CSS
   */
   css: [
-    'ant-design-vue/dist/antd.css',
+    'ant-design-vue/dist/antd.less',
+    '@/assets/styles/theme.scss',
     '@/assets/styles/custom.css'
   ],
+
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
@@ -71,5 +73,17 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    loaders: {
+      less: {
+        lessOptions: {
+          modifyVars: {
+            'primary-color': '#c82f63',
+            'link-color': '#c82f63',
+            'error-color': '#e43f5a'
+          },
+          javascriptEnabled: true
+        }
+      }
+    }
   }
 }

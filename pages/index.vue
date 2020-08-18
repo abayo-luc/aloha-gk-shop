@@ -2,7 +2,7 @@
   <div>
     <home-carousel />
     <product-cateogries />
-    <div class="container">
+    <div class="container-md container-fluid ">
       <product-header />
       <div class="row small-gutters">
         <div v-for="product in products" :key="product" class="col-6 col-md-4 col-xl-3">

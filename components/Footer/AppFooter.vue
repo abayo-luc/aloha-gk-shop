@@ -123,7 +123,7 @@ export default {
   }
 }
 footer {
-  background-color: #172134;
+  background-color: #1F131E;
   padding: 60px 0 35px 0;
 }
 @media (max-width: 767px) {
@@ -261,7 +261,7 @@ footer .links ul li a:hover:after {
     -moz-border-radius: 0 3px 3px 0;
     -ms-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
-    background-color: #004dda;
+    background-color: #c82f63;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;

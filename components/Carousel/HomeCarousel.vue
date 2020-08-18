@@ -1,5 +1,5 @@
 <template>
-  <carousel :autoplay="true" :autoplay-hover-pause="true" :per-page="1" pagination-position="bottom-overlay" pagination-active-color="#1890ff">
+  <carousel :autoplay="true" :autoplay-hover-pause="true" :per-page="1" pagination-position="bottom-overlay" pagination-active-color="#c82f62">
     <slide v-for="(carousel, index) in carousels" :key="carousel.key" class="owl-slide cover" :style="{backgroundImage: `url(${carousel.image})`}">
       <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
         <div class="container">
@@ -27,7 +27,7 @@
                   {{ carousel.description }}
                 </p>
                 <div class="owl-slide-animated owl-slide-cta">
-                  <a-button type="primary">
+                  <a-button type="primary" size="large">
                     Shop Now
                   </a-button>
                 </div>
@@ -117,7 +117,7 @@ export default {
   left: 0;
   top: 0;
   z-index: 2;
-  background-color:rgba(255, 255, 255, 0.5);
+  background-color:rgba(200, 47, 98, 0.17);
 }
 
 </style>
