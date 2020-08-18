@@ -1,5 +1,5 @@
 # aloha-gk-shop
-
+ [Color theme](https://colorpalettes.net/color-palette-4189/)
 ## Build Setup
 
 ```bash
