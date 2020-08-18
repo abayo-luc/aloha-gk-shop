@@ -1,6 +1,6 @@
 <template>
   <div class="main-header">
-    <div style="background-color: rgb(0, 77, 218); padding: 24px;">
+    <div style="background-color: #c82f63; padding: 24px;">
       <a-page-header
         :ghost="false"
         title="AlohaGK"
@@ -65,6 +65,6 @@ export default {
 
 <style lang="css" scoped>
 .main-header{
-  background-color: rgb(0, 77, 218);;
+  background-color: #220e24;
 }
 </style>

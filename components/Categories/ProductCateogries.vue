@@ -3,7 +3,7 @@
     <li>
       <a href="#0" class="img_container">
         <img src="https://previews.dropbox.com/p/thumb/AA59zdVImM8FSDTDccGh7fqmZindaDKl0ZyL6MlD1QDxo5xU37nUKeY7kCMHh5nVeAsevi6YHQ_Ge_H4HZfQ82KGfAHurMP1-oOrCr5s5lNq4W41wqFvVAaRFr8pqiyoR73bLa1SkfgM8rJzEBkLy5Kz7slSOad7JZmSmZ4S4JOKViExuLIC10lofyHJBOfoROoM2vBVz9a_PhG3D_m6sXA2ngLXl2kY4KgDoUot1MRFN6pOSQxGuSWgCCSbbK6UjA0uR24ZG90JxxZAhbiu65TjmY57NRMggOyoBJ5zuOj4ytTbSdCpQxyI4Jl8uCOd9aHzO7W8gMIdagwwksA6N_BrXEgvOzxigJWgFmC9pGNMfg/p.jpeg?fv_content=true&size_mode=5" data-src="img/banner_1.jpg" alt="" class="lazy loaded" data-was-processed="true">
-        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
           <h3>Category 1</h3>
           <div>
             <a-button type="primary">View Category</a-button>
@@ -14,7 +14,7 @@
     <li>
       <a href="#0" class="img_container">
         <img src="ihttps://previews.dropbox.com/p/thumb/AA59zdVImM8FSDTDccGh7fqmZindaDKl0ZyL6MlD1QDxo5xU37nUKeY7kCMHh5nVeAsevi6YHQ_Ge_H4HZfQ82KGfAHurMP1-oOrCr5s5lNq4W41wqFvVAaRFr8pqiyoR73bLa1SkfgM8rJzEBkLy5Kz7slSOad7JZmSmZ4S4JOKViExuLIC10lofyHJBOfoROoM2vBVz9a_PhG3D_m6sXA2ngLXl2kY4KgDoUot1MRFN6pOSQxGuSWgCCSbbK6UjA0uR24ZG90JxxZAhbiu65TjmY57NRMggOyoBJ5zuOj4ytTbSdCpQxyI4Jl8uCOd9aHzO7W8gMIdagwwksA6N_BrXEgvOzxigJWgFmC9pGNMfg/p.jpeg?fv_content=true&size_mode=5" data-src="img/banner_2.jpg" alt="" class="lazy loaded" data-was-processed="true">
-        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
           <h3>Category 3</h3>
           <div>
             <a-button type="primary">View Category</a-button>
@@ -25,7 +25,7 @@
     <li>
       <a href="#0" class="img_container">
         <img src="https://previews.dropbox.com/p/thumb/AA59zdVImM8FSDTDccGh7fqmZindaDKl0ZyL6MlD1QDxo5xU37nUKeY7kCMHh5nVeAsevi6YHQ_Ge_H4HZfQ82KGfAHurMP1-oOrCr5s5lNq4W41wqFvVAaRFr8pqiyoR73bLa1SkfgM8rJzEBkLy5Kz7slSOad7JZmSmZ4S4JOKViExuLIC10lofyHJBOfoROoM2vBVz9a_PhG3D_m6sXA2ngLXl2kY4KgDoUot1MRFN6pOSQxGuSWgCCSbbK6UjA0uR24ZG90JxxZAhbiu65TjmY57NRMggOyoBJ5zuOj4ytTbSdCpQxyI4Jl8uCOd9aHzO7W8gMIdagwwksA6N_BrXEgvOzxigJWgFmC9pGNMfg/p.jpeg?fv_content=true&size_mode=5" data-src="img/banner_3.jpg" alt="" class="lazy loaded" data-was-processed="true">
-        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
           <h3>categoery 2</h3>
           <div>
             <a-button type="primary">View Category</a-button>

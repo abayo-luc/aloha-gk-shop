@@ -89,6 +89,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+a.ant-dropdown-link.category-menu.ant-dropdown-trigger {
+    color: #000;
+}
 .sub-header{
     border-bottom: 1px solid rgb(237, 237, 237);
     background-color: rgb(255, 255, 255);
@@ -109,7 +112,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:'#000' !important
+
 }
 .category-menu .menu-icon{
     font-size: 1.5rem;
