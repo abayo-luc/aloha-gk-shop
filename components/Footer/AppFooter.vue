@@ -50,7 +50,7 @@
               <div class="input-group">
                 <input id="email_newsletter" type="email" name="email_newsletter" class="form-control" placeholder="Your email">
                 <div class="input-group-append">
-                  <a-button type="primary" shape="square" icon="double-right" size="large" />
+                  <a-button type="primary" icon="double-right" size="large" />
                 </div>
               </div>
             </div>

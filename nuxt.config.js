@@ -67,7 +67,21 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    proxy: true,
+    baseURL: 'http://localhost:4000'
+  },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.VUE_APP_API_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.VUE_APP_API_BASE_URL
+    }
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
@@ -85,5 +99,13 @@ export default {
         }
       }
     }
+  },
+  /**
+   *
+   * showing progressive loading
+   */
+  loading: {
+    color: '#1F131E',
+    height: '5px'
   }
 }

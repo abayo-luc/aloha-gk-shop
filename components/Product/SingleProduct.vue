@@ -14,10 +14,10 @@
         <a-icon type="star" /><a-icon type="star" /><a-icon type="star" /><a-icon type="star" /><a-icon type="star" />
       </div>
       <a href="product-detail-1.html">
-        <h3>Armor Air x Fear</h3>
+        <h3>{{ product.name }}</h3>
       </a>
       <div class="price_box">
-        <span class="new_price">$48.00</span>
+        <span class="new_price">{{ product.price }} Rwf</span>
         <span class="old_price">$60.00</span>
       </div>
       <ul>
@@ -48,7 +48,11 @@
 
 <script>
 export default {
-
+  name: 'SingleProduct',
+  props: ['product'],
+  created () {
+    console.log(this.product)
+  }
 }
 </script>
 
