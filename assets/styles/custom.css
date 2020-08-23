@@ -40,3 +40,15 @@ ul.additional_links li:after {
     width: 60% !important;
   }
 }
+
+/* make subheader stick */
+.sticky {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.sticky + .content {
+  padding-top: 0.5rem;
+}

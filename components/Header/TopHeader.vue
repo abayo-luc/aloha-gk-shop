@@ -1,20 +1,23 @@
 <template>
-  <div class="main-header">
-    <div style="background-color: #c82f63; padding: 24px;">
-      <a-page-header
-        :ghost="false"
-        title="AlohaGK"
-      >
-        <template slot="extra">
-          <a-button key="2" icon="user-add" class="mx-2" @click="showModal('sign-up', 'User Registration', 'Submit')">
-            SignUp
-          </a-button>
-          <a-button key="1" type="primary" icon="user" @click="showModal('login', 'User Login', 'Login')">
+  <div>
+    <b-navbar toggleable="lg" class="navbar py-md-2">
+      <b-navbar-brand href="#">
+        <span class="text-white">AlohaGK</span>
+      </b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse" />
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <a-button icon="user" class="mr-md-2 my-1" @click="showModal('login', 'User Login', 'Login')">
             Login
           </a-button>
-        </template>
-      </a-page-header>
-    </div>
+          <a-button ghost icon="user-add" class="my-1" @click="showModal('sign-up', 'User Registration', 'Submit')">
+            Register
+          </a-button>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <a-modal
       v-model="visible"
       :title="modalTitle"
@@ -64,6 +67,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+.navbar{
+  background-color: #c82f63;
+  color: #fff
+}
 .main-header{
   background-color: #220e24;
 }
