@@ -1,6 +1,6 @@
 <template>
-  <div class="sub-header">
-    <div class="container">
+  <div class="sub-header bg-white">
+    <div class="container-md">
       <div class="row small-gutters align-items-center justify-content-between header-items">
         <div class="col-xl-3 col-lg-3 col-6">
           <nav class="categories menu">
@@ -25,14 +25,17 @@
         <div class="col-xl-6 col-lg-7  d-none d-md-block">
           <a-input-search placeholder="Search products.." size="large" style="background-color: #ccc;" class="custom-search-input" @search="onSearch" />
         </div>
-        <div class="col-xl-3 col-lg-2 col-4 row justify-content-end align-items-center">
-          <div class="col-6  d-xl-none d-lg-none d-block">
-            <a-button type="default" class="search-button" icon="search" @click="showSearch" />
-          </div>
-          <div class="col-6 ">
-            <a-badge count="5" :offset="[-2,10]">
-              <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
-            </a-badge>
+        <div class="col-xl-3 col-lg-2 col-6">
+          <div class="row justify-content-end align-items-center">
+            <div class="col-6  d-xl-none d-lg-none d-block">
+              <a-button type="default" class="search-button float-right" icon="search" @click="showSearch" />
+            </div>
+
+            <div class="col-3">
+              <a-badge count="5" :offset="[-2,10]" class="float-right">
+                <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
+              </a-badge>
+            </div>
           </div>
         </div>
         <div class=" d-xl-none d-lg-none col-12">
@@ -95,8 +98,7 @@ a.ant-dropdown-link.category-menu.ant-dropdown-trigger {
 .sub-header{
     border-bottom: 1px solid rgb(237, 237, 237);
     background-color: rgb(255, 255, 255);
-    position: relative;
-    z-index: 999;
+    z-index: 9999;
 }
 .header-items{
     min-height: 60px;
