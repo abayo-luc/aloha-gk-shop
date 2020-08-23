@@ -5,8 +5,8 @@ export const state = () => ({
 export const actions = {
   async fetchAll ({ commit }) {
     try {
-      const { data } = await this.$axios.$get('/products', { progress: true })
-      commit('setProducts', data)
+      const response = await this.$axios.$get('/products', { progress: true })
+      commit('setProducts', response?.data || [])
     } catch (error) {
       console.log(error)
     }
