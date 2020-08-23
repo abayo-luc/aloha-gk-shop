@@ -86,6 +86,9 @@ export default {
       } else {
         el.classList.add('search-visible')
       }
+    },
+    onSearch () {
+      console.log('>>>>>>>>>>>>>>>>>>>>')
     }
   }
 }
