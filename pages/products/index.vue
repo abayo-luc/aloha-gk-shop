@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     onChange (current) {
-      console.log(current)
       this.current = current
     }
   }
