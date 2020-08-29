@@ -40,8 +40,7 @@ export default {
   */
   plugins: [
     '@/plugins/antd-ui',
-    '@/plugins/bootstrap',
-    '@/plugins/v-carousel'
+    '@/plugins/bootstrap'
   ],
   /*
   ** Auto import components
@@ -68,8 +67,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    proxy: true,
-    baseURL: 'http://localhost:4000'
+    baseURL: 'https://aloha-gk-dev.herokuapp.com/api/v1'
   },
   publicRuntimeConfig: {
     axios: {
@@ -105,7 +103,7 @@ export default {
    * showing progressive loading
    */
   loading: {
-    color: '#1F131E',
+    color: '#c82f63',
     height: '5px'
   }
 }

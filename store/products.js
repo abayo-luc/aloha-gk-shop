@@ -1,12 +1,24 @@
+const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS'
+const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCTS'
+
 export const state = () => ({
-  list: []
+  list: [],
+  product: {}
 })
 
 export const actions = {
   async fetchAll ({ commit }) {
     try {
-      const { data } = await this.$axios.$get('/products', { progress: true })
-      commit('setProducts', data)
+      const response = await this.$axios.$get('/products', { progress: true })
+      commit(SET_ALL_PRODUCTS, response?.data || [])
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  async fetchSingleProduct ({ commit }, id) {
+    try {
+      const response = await this.$axios.$get(`/products/${id}`, { progress: true })
+      commit(SET_SINGLE_PRODUCT, response?.data || {})
     } catch (error) {
       console.log(error)
     }
@@ -14,11 +26,15 @@ export const actions = {
 }
 
 export const mutations = {
-  setProducts (state, products) {
+  [SET_ALL_PRODUCTS] (state, products) {
     state.list = products
+  },
+  [SET_SINGLE_PRODUCT] (state, product) {
+    state.product = product
   }
 }
 
 export const getters = {
-  getProducts: state => state.list
+  all: state => state.list,
+  one: state => state.product
 }

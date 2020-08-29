@@ -106,7 +106,6 @@ export default {
   methods: {
     handleCollapse (id) {
       const el = document.querySelector(id)
-      console.log(el.style)
       if (el.style.display === 'none') { el.style.display = 'block' }
       if (el.style.display === 'block') { el.style.display = 'none' }
     }
@@ -125,6 +124,10 @@ export default {
 footer {
   background-color: #1F131E;
   padding: 60px 0 35px 0;
+  z-index: -991;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 }
 @media (max-width: 767px) {
   footer {
