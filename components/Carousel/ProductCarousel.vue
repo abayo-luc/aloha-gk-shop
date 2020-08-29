@@ -3,23 +3,27 @@
     <a slot="customPaging" slot-scope="props">
       <img :src="getImgUrl(props.i)">
     </a>
-    <div v-for="item in 4" :key="item">
-      <img :src="baseUrl + 'abstract0' + item + '.jpg'">
+    <div v-for="(image, index) in images" :key="'image'+index">
+      <img :src="image">
     </div>
   </a-carousel>
 </template>
 <script>
-const baseUrl =
-  'https://raw.githubusercontent.com/vueComponent/ant-design-vue/master/components/vc-slick/assets/img/react-slick/'
+
 export default {
   data () {
     return {
-      baseUrl
+      images: [
+        'https://images.unsplash.com/photo-1577217534079-41d6bb68ac50?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+        'https://images.unsplash.com/photo-1573256081876-ca883b40ed2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+        'https://images.unsplash.com/photo-1480732149909-d4e710a0f81c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+        'https://images.unsplash.com/photo-1512908390106-b1af96afe5cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+      ]
     }
   },
   methods: {
     getImgUrl (i) {
-      return `${baseUrl}abstract0${i + 1}.jpg`
+      return this.images[i]
     }
   }
 }
