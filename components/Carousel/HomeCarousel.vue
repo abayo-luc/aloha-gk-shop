@@ -1,6 +1,6 @@
 <template>
-  <carousel :autoplay="true" :autoplay-hover-pause="true" :per-page="1" pagination-position="bottom-overlay" pagination-active-color="#c82f62">
-    <slide v-for="(carousel, index) in carousels" :key="carousel.key" class="owl-slide cover" :style="{backgroundImage: `url(${carousel.image})`}">
+  <a-carousel autoplay>
+    <div v-for="(carousel, index) in carousels" :key="carousel.key" class="owl-slide cover" :style="{backgroundImage: `url(${carousel.image})`}">
       <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
         <div class="container">
           <div
@@ -36,17 +36,12 @@
           </div>
         </div>
       </div>
-    </slide>
-  </carousel>
+    </div>
+  </a-carousel>
 </template>
 
 <script>
-import { Carousel, Slide } from 'vue-carousel'
 export default {
-  components: {
-    Carousel,
-    Slide
-  },
   data () {
     return ({
       carousels: [
@@ -104,12 +99,11 @@ export default {
 .owl-slide {
   height: 450px;
   position: relative;
-
-}
-.owl-slide{
     background-repeat: no-repeat;
     background-position: center;
+
 }
+
 .opacity-mask {
   width: 100%;
   height: 100%;
@@ -120,4 +114,9 @@ export default {
   background-color:rgba(200, 47, 98, 0.17);
 }
 
+.ant-carousel .slick-dots li.slick-active button {
+    width: 24px;
+    background: #c82f63;
+    opacity: 1;
+}
 </style>

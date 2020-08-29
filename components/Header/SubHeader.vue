@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class=" d-xl-none d-lg-none col-12">
-          <div id="mob-search" class="search_mob_wp search-visible">
+          <div id="mob-search" class="search_mob_wp">
             <a-input placeholder="Search products.." size="large" class="custom-search-input" />
             <a-button type="primary" block class="my-2">
               Search

@@ -6,7 +6,7 @@
       <product-header />
       <div class="row small-gutters">
         <div v-for="product in products" :key="product" class="col-6 col-md-4 col-xl-3">
-          <single-product :product="product" />
+          <product-card :product="product" />
         </div>
       </div>
     </div>
@@ -17,17 +17,17 @@
 import { mapGetters } from 'vuex'
 import HomeCarousel from '../components/Carousel/HomeCarousel.vue'
 import ProductCateogries from '../components/Categories/ProductCateogries.vue'
-import SingleProduct from '../components/Product/SingleProduct.vue'
+import ProductCard from '../components/Product/ProductCard.vue'
 import ProductHeader from '../components/Header/ProductHeader.vue'
 export default {
   components: {
     HomeCarousel,
     ProductCateogries,
-    SingleProduct,
+    ProductCard,
     ProductHeader
   },
   computed: {
-    ...mapGetters({ products: 'products/getProducts' })
+    ...mapGetters({ products: 'products/all' })
   },
   beforeMount () {
     this.$store.dispatch('products/fetchAll')

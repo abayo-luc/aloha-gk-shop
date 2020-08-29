@@ -127,7 +127,7 @@ footer {
   z-index: -991;
   position: fixed;
   bottom: 0px;
-  width: 1440px;
+  width: 100%;
 }
 @media (max-width: 767px) {
   footer {

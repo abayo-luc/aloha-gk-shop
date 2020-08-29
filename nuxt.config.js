@@ -40,8 +40,7 @@ export default {
   */
   plugins: [
     '@/plugins/antd-ui',
-    '@/plugins/bootstrap',
-    '@/plugins/v-carousel'
+    '@/plugins/bootstrap'
   ],
   /*
   ** Auto import components

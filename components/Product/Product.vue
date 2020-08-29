@@ -1,101 +1,20 @@
 <template>
-  <div class="container margin_30">
-    <div class="countdown_inner my-2">
+  <div class="container py-4">
+    <!-- <div class="countdown_inner my-2">
       -20% This offer ends in <div data-countdown="2019/05/15" class="countdown">
         00D 00:00:00
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-6">
         <div class="all">
-          <div class="slider">
-            <div class="owl-carousel owl-theme main owl-loaded owl-drag">
-              <div class="owl-stage-outer">
-                <div class="owl-stage" style="transform: translate3d(-1740px, 0px, 0px); transition: all 0s ease 0s; width: 3480px;">
-                  <div class="owl-item" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/1.jpg);" class="item-box" />
-                  </div><div class="owl-item" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/2.jpg);" class="item-box" />
-                  </div><div class="owl-item" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/3.jpg);" class="item-box" />
-                  </div><div class="owl-item active" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/4.jpg);" class="item-box" />
-                  </div><div class="owl-item" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/5.jpg);" class="item-box" />
-                  </div><div class="owl-item" style="width: 580px;">
-                    <div style="background-image: url(img/products/shoes/6.jpg);" class="item-box" />
-                  </div>
-                </div>
-              </div><div class="owl-nav">
-                <button type="button" role="presentation" class="owl-prev">
-                  <span aria-label="Previous">‹</span>
-                </button><button type="button" role="presentation" class="owl-next">
-                  <span aria-label="Next">›</span>
-                </button>
-              </div><div class="owl-dots">
-                <button role="button" class="owl-dot">
-                  <span />
-                </button><button role="button" class="owl-dot">
-                  <span />
-                </button><button role="button" class="owl-dot">
-                  <span />
-                </button><button role="button" class="owl-dot active">
-                  <span />
-                </button><button role="button" class="owl-dot">
-                  <span />
-                </button><button role="button" class="owl-dot">
-                  <span />
-                </button>
-              </div>
-            </div>
-            <div class="left">
-              <i class="ti-angle-left" />
-            </div>
-            <div class="right">
-              <i class="ti-angle-right" />
-            </div>
-          </div>
-          <div class="slider-two">
-            <div class="owl-carousel owl-theme thumbs owl-loaded">
-              <div class="owl-stage-outer">
-                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 714px;">
-                  <div class="owl-item active" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/1.jpg);" class="item" />
-                  </div><div class="owl-item active" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/2.jpg);" class="item" />
-                  </div><div class="owl-item active" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/3.jpg);" class="item" />
-                  </div><div class="owl-item active" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/4.jpg);" class="item active" />
-                  </div><div class="owl-item active" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/5.jpg);" class="item" />
-                  </div><div class="owl-item" style="width: 104px; margin-right: 15px;">
-                    <div style="background-image: url(img/products/shoes/6.jpg);" class="item" />
-                  </div>
-                </div>
-              </div><div class="owl-nav">
-                <button type="button" role="presentation" class="owl-prev disabled">
-                  <span aria-label="Previous">‹</span>
-                </button><button type="button" role="presentation" class="owl-next">
-                  <span aria-label="Next">›</span>
-                </button>
-              </div><div class="owl-dots">
-                <button role="button" class="owl-dot active">
-                  <span />
-                </button><button role="button" class="owl-dot">
-                  <span />
-                </button>
-              </div>
-            </div>
-            <div class="left-t nonl-t" />
-            <div class="right-t" />
-          </div>
+          <product-carousel />
         </div>
       </div>
       <div class="col-md-6">
         <!-- /page_header -->
         <div class="prod_info">
-          <h1>Armor Air X Fear</h1>
+          <h1>{{ product.name }}</h1>
           <span class="rating">
             <a-icon type="star" class="voted" theme="filled" />
             <a-icon type="star" class="voted" theme="filled" />
@@ -107,8 +26,7 @@
           <p>
             <small>SKU: MTKRY-001</small>
             <br>
-            Sed ex labitur adolescens scriptorem. Te saepe verear tibique sed.
-            Et wisi ridens vix, lorem iudico blandit mel cu. Ex vel sint zril oportere, amet wisi aperiri te cum.
+            {{ product.description }}
           </p>
           <div class="prod_options">
             <div class="row">
@@ -154,7 +72,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="price_main">
-                <span class="new_price">$148.00</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span>
+                <span class="new_price">{{ product.price }} Rwf</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span>
               </div>
             </div>
             <div class="col-md-5">
@@ -173,6 +91,7 @@
 </template>
 
 <script>
+import ProductCarousel from '../Carousel/ProductCarousel.vue'
 const options = [
   {
     value: 'S',
@@ -193,6 +112,10 @@ const options = [
 ]
 export default {
   name: 'Product',
+  components: {
+    ProductCarousel
+  },
+  props: ['product'],
   data () {
     return {
       options

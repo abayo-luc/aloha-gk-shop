@@ -43,7 +43,7 @@
         <a-tab-pane key="2" tab="Review" force-render>
           <div class="card-body">
             <div class="row justify-content-between">
-              <div class="col-lg-6">
+              <div v-for="review in reviews" :key="review.id" class="col-lg-6">
                 <div class="review_content">
                   <div class="clearfix add_bottom_10">
                     <span class="rating">
@@ -58,59 +58,7 @@
                   <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="review_content">
-                  <div class="clearfix add_bottom_10">
-                    <span class="rating">
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <em>4.0/5.0</em>
-                    </span>
-                    <em>Published 1 day ago</em>
-                  </div>
-                  <h4>"Always the best"</h4>
-                  <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                </div>
-              </div>
             </div>
-            <!-- /row -->
-            <div class="row justify-content-between">
-              <div class="col-lg-6">
-                <div class="review_content">
-                  <div class="clearfix add_bottom_10">
-                    <span class="rating">
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" />
-                      <a-icon type="star" />
-                      <i class="icon-star empty" /><em>3/5.0</em></span>
-                    <em>Published 3 days ago</em>
-                  </div>
-                  <h4>"Outstanding"</h4>
-                  <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="review_content">
-                  <div class="clearfix add_bottom_10">
-                    <span class="rating">
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" class="voted" theme="filled" />
-                      <a-icon type="star" />
-                      <i class="icon-star" />
-                      <em>4.0/5.0</em>
-                    </span>
-                    <em>Published 4 days ago</em>
-                  </div>
-                  <h4>"Excellent"</h4>
-                  <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                </div>
-              </div>
-            </div>
-            <!-- /row -->
             <div class="col-md-3 float-right">
               <a-button type="primary" block>
                 Leave a review
@@ -128,6 +76,7 @@
 <script>
 export default {
   name: 'ProductReview',
+  props: ['reviews'],
   methods: {
     callback (key) {
       console.log(key)

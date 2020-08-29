@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" class="navbar py-md-2">
-      <b-navbar-brand href="#">
+      <b-navbar-brand href="/">
         <span class="text-white">AlohaGK</span>
       </b-navbar-brand>
 
