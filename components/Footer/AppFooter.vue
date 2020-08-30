@@ -125,9 +125,15 @@ footer {
   background-color: #1F131E;
   padding: 60px 0 35px 0;
   z-index: -991;
-  position: fixed;
-  bottom: 0px;
+  /* position: fixed;
+  bottom: 0px; */
   width: 100%;
+}
+@media  (max-width: 767px) {
+  footer{
+   position: relative;
+   bottom: 0px;
+  }
 }
 @media (max-width: 767px) {
   footer {

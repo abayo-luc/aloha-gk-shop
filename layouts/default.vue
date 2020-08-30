@@ -45,4 +45,11 @@ export default {
   margin-bottom: 384px;
   background-color: #fff;
 }
+@media  (max-width: 767px) {
+
+  .content{
+    margin-bottom: 30px;
+  }
+
+}
 </style>
