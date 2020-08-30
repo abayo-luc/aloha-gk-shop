@@ -14,7 +14,9 @@
       <div class="col-md-6">
         <!-- /page_header -->
         <div class="prod_info">
-          <h1>{{ product.name }}</h1>
+          <h1>
+            {{ product.name }}
+          </h1>
           <span class="rating">
             <a-icon type="star" class="voted" theme="filled" />
             <a-icon type="star" class="voted" theme="filled" />
@@ -76,8 +78,8 @@
               </div>
             </div>
             <div class="col-md-5">
-              <div class="btn_add_to_cart">
-                <a-button type="primary" block>
+              <div class="btn_add_to_cart my-2">
+                <a-button type="primary" block icon="shopping-cart">
                   ADD TO CART
                 </a-button>
               </div>

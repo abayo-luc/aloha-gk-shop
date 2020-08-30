@@ -1,12 +1,14 @@
 <template>
-  <a-carousel arrows dots-class="slick-dots slick-thumb">
-    <a slot="customPaging" slot-scope="props">
-      <img :src="getImgUrl(props.i)">
-    </a>
-    <div v-for="(image, index) in images" :key="'image'+index">
-      <img :src="image">
-    </div>
-  </a-carousel>
+  <div class="carousel">
+    <a-carousel arrows dots-class="slick-dots slick-thumb">
+      <a slot="customPaging" slot-scope="props">
+        <img :src="getImgUrl(props.i)">
+      </a>
+      <div v-for="(image, index) in images" :key="'image'+index">
+        <img :src="image">
+      </div>
+    </a-carousel>
+  </div>
 </template>
 <script>
 
@@ -29,6 +31,9 @@ export default {
 }
 </script>
 <style scoped>
+.carousel{
+  min-height: 17rem;
+}
 /* For demo */
 .ant-carousel >>> .slick-dots {
   height: auto;
@@ -54,4 +59,5 @@ export default {
 .ant-carousel >>> .slick-thumb li.slick-active img {
   filter: grayscale(0%);
 }
+
 </style>
