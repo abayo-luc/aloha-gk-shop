@@ -9,14 +9,8 @@
                 <a-icon type="menu" size="large" class="menu-icon mr-2" /> Categories
               </a>
               <a-menu slot="overlay">
-                <a-menu-item>
-                  <a href="/products">Category 1</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="/products">Category 2</a>
-                </a-menu-item>
-                <a-menu-item>
-                  <a href="/products">Category 4</a>
+                <a-menu-item v-for="category in categories" :key="category.id">
+                  <a :href="`/products?category=${category.name}`">{{ category.name }}</a>
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
@@ -61,6 +55,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import ShoppingCart from '../Cart/Cart.vue'
 export default {
   name: 'SubHeader',
@@ -71,6 +66,13 @@ export default {
     return {
       drawerVisible: false
     }
+  },
+  computed: {
+    ...mapGetters({ categories: 'categories/all' })
+    // currentCategory () {
+    //   console.log(this.$router)
+    //   return 'SHOEAS'
+    // }
   },
   methods: {
     showDrawer () {

@@ -7,7 +7,7 @@
           <filter-tools />
         </div>
         <div class="col-lg-9">
-          <product-card-horizontal v-for="i in 5" :key="i" />
+          <product-card-horizontal v-for="product in products" :key="product.id" :product="product" />
           <div class="wd-100 pagination">
             <div class="my-3">
               <a-pagination :current="current" :total="100" @change="onChange" />
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProductCardHorizontal from '../../components/Product/ProductCardHorizontal.vue'
 import TopBanner from './components/TopBanner.vue'
 import FilterTools from './components/FilterTools.vue'
@@ -35,9 +36,21 @@ export default {
       current: 3
     }
   },
+  computed: {
+    ...mapGetters({ products: 'products/all' })
+  },
+  beforeMount () {
+    this.fetchData()
+  },
+
   methods: {
+    fetchData (moreQuery = {}) {
+      const { query } = this.$route
+      this.$store.dispatch('products/fetchAll', { ...query, ...moreQuery })
+    },
     onChange (current) {
       this.current = current
+      this.fetchData({ page: current })
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <main class="container-fuied product-page">
     <product-component :product="product" />
-    <product-review :reviews="product.reviews || []" />
+    <product-review :product="product" />
     <div class="main_title mt-5">
       <h2 class="text-center">
         Related Products

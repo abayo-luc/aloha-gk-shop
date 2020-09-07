@@ -13,16 +13,7 @@
 <script>
 
 export default {
-  data () {
-    return {
-      images: [
-        'https://images.unsplash.com/photo-1577217534079-41d6bb68ac50?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-        'https://images.unsplash.com/photo-1573256081876-ca883b40ed2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-        'https://images.unsplash.com/photo-1480732149909-d4e710a0f81c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-        'https://images.unsplash.com/photo-1512908390106-b1af96afe5cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
-      ]
-    }
-  },
+  props: ['images'],
   methods: {
     getImgUrl (i) {
       return this.images[i]

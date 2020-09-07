@@ -2,9 +2,9 @@
   <div class="row row_item">
     <div class="col-sm-4">
       <figure>
-        <span class="ribbon off">-30%</span>
-        <a href="product-detail-1.html">
-          <img class="img-fluid lazy loaded" src="https://images.unsplash.com/photo-1529530968687-17b54c12c9a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80" data-src="https://images.unsplash.com/photo-1529530968687-17b54c12c9a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80" alt="" data-was-processed="true">
+        <span class="ribbon off">{{ discountRate }}</span>
+        <a :href="producUrl">
+          <img class="img-fluid lazy loaded" :src="getIndexImage" :data-src="getIndexImage" alt="" data-was-processed="true">
         </a>
       </figure>
     </div>
@@ -16,13 +16,13 @@
         <a-icon type="star" class="icon-star voted" theme="filled" />
         <a-icon type="star" />
       </div>
-      <a href="product-detail-1.html">
-        <h3>Armor Air x Fear</h3>
+      <a :href="producUrl">
+        <h3>{{ product.name }}</h3>
       </a>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident...</p>
+      <p>{{ product.shortDescription }}</p>
       <div class="price_box">
-        <span class="new_price">$48.00</span>
-        <span class="old_price">$60.00</span>
+        <span class="new_price">{{ productPrice }}</span>
+        <span class="old_price">{{ productListPrice }}</span>
       </div>
       <ul>
         <li>
@@ -37,7 +37,37 @@
 
 <script>
 export default {
-  name: 'ProductCardHorizontal'
+  name: 'ProductCardHorizontal',
+  props: ['product'],
+  computed: {
+    producUrl () {
+      return `/products/${this.product.id}`
+    },
+    getIndexImage () {
+      if (this.product?.images?.length) {
+        return this.product?.images[0]?.url || ''
+      } else {
+        return ''
+      }
+    },
+    discountRate () {
+      if (this.product?.listPrice) {
+        return ((this.product.price - this.product.listPrice) / this.product.listPrice).toLocaleString(undefined, {
+          style: 'percent'
+        })
+      } else {
+        return null
+      }
+    },
+    productPrice () {
+      const options = { style: 'currency', currency: 'RWF' }
+      return new Intl.NumberFormat('en', options).format(this.product?.price || 0)
+    },
+    productListPrice () {
+      const options = { style: 'currency', currency: 'RWF' }
+      return new Intl.NumberFormat('en', options).format(this.product?.listPrice || 0)
+    }
+  }
 }
 </script>
 

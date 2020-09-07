@@ -7,9 +7,8 @@
             <div class="row justify-content-between">
               <div class="col-lg-6">
                 <h3>Details</h3>
-                <p>Lorem ipsum dolor sit amet, in eleifend <strong>inimicus elaboraret</strong> his, harum efficiendi mel ne. Sale percipit vituperata ex mel, sea ne essent aeterno sanctus, nam ea laoreet civibus electram. Ea vis eius explicari. Quot iuvaret ad has.</p>
-                <p>Vis ei ipsum conclusionemque. Te enim suscipit recusabo mea, ne vis mazim aliquando, everti insolens at sit. Cu vel modo unum quaestio, in vide dicta has. Ut his laudem explicari adversarium, nisl <strong>laboramus hendrerit</strong> te his, alia lobortis vis ea.</p>
-                <p>Perfecto eleifend sea no, cu audire voluptatibus eam. An alii praesent sit, nobis numquam principes ea eos, cu autem constituto suscipiantur eam. Ex graeci elaboraret pro. Mei te omnis tantas, nobis viderer vivendo ex has.</p>
+                <a-skeleton v-if="isLoading" active />
+                <div v-else v-html="product.fullDescription" />
               </div>
               <div class="col-lg-5">
                 <h3>Specifications</h3>
@@ -43,7 +42,7 @@
         <a-tab-pane key="2" tab="Review" force-render>
           <div class="card-body">
             <div class="row justify-content-between">
-              <div v-for="review in reviews" :key="review.id" class="col-lg-6">
+              <div v-for="review in product.reviews" :key="review.id" class="col-lg-6">
                 <div class="review_content">
                   <div class="clearfix add_bottom_10">
                     <span class="rating">
@@ -76,7 +75,12 @@
 <script>
 export default {
   name: 'ProductReview',
-  props: ['reviews'],
+  props: ['product'],
+  computed: {
+    isLoading () {
+      return this.product.isLoading
+    }
+  },
   methods: {
     callback (key) {
       console.log(key)
