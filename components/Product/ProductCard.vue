@@ -4,9 +4,9 @@
       <figure>
         <span class="ribbon off">-30%</span>
         <a :href="producUrl">
-          <img class="img-fluid lazy loaded" src="https://images.unsplash.com/photo-1495231916356-a86217efff12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=976&q=80" data-src="img/products/shoes/1.jpg" alt="" data-was-processed="true">
+          <img class="img-fluid lazy loaded" :src="getIndexImage" :data-src="getIndexImage" alt="" data-was-processed="true">
         </a>
-        <div data-countdown="2019/05/15" class="countdown">
+        <div v-if="product.inStock <= 0" class="countdown">
           Out of stock
         </div>
       </figure>
@@ -18,7 +18,7 @@
       </a>
       <div class="price_box">
         <span class="new_price">{{ product.price }} Rwf</span>
-        <span class="old_price">$60.00</span>
+        <span class="old_price">{{ product.listPrice }}</span>
       </div>
       <ul>
         <li>
@@ -31,7 +31,7 @@
             data-original-title="Add to favorites"
           ><a-icon type="shopping-cart" /><span>Add to Cart</span></a>
         </li>
-        <li>
+        <!-- <li>
           <a
             href="#0"
             class="tooltip-1"
@@ -40,7 +40,7 @@
             title=""
             data-original-title="Add to compare"
           ><a-icon type="share-alt" /><span>Share</span></a>
-        </li>
+        </li> -->
       </ul>
     </a-card>
   </div>
@@ -53,6 +53,13 @@ export default {
   computed: {
     producUrl () {
       return `/products/${this.product.id}`
+    },
+    getIndexImage () {
+      if (this.product?.images?.length) {
+        return this.product?.images[0]?.url || ''
+      } else {
+        return ''
+      }
     }
   }
 }

@@ -21,6 +21,9 @@ export default {
     AppFooter,
     SubHeader
   },
+  beforeMount () {
+    this.$store.dispatch('categories/fetchAll')
+  },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
   },

@@ -8,12 +8,14 @@
     <div class="row">
       <div class="col-md-6">
         <div class="all">
-          <product-carousel />
+          <a-skeleton :loading="isLoading" />
+          <product-carousel :images="images" />
         </div>
       </div>
       <div class="col-md-6">
         <!-- /page_header -->
         <div class="prod_info">
+          <a-skeleton :loading="isLoading" active paragraph rows="1" />
           <h1>
             {{ product.name }}
           </h1>
@@ -25,11 +27,13 @@
             <a-icon type="star" />
             <em class="mx-1">4 reviews</em>
           </span>
+          <a-skeleton :loading="isLoading" active />
           <p>
-            <small>SKU: MTKRY-001</small>
-            <br>
-            {{ product.description }}
+            <!-- <small>SKU: MTKRY-001</small> -->
+            <!-- <br> -->
+            {{ product.shortDescription }}
           </p>
+
           <div class="prod_options">
             <div class="row">
               <label class="col-md-6 col-6 pt-0"><strong>Color</strong></label>
@@ -73,8 +77,11 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="price_main">
-                <span class="new_price">{{ product.price }} Rwf</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span>
+              <a-skeleton :loading="isLoading" paragraph />
+              <div v-if="!isLoading" class="price_main">
+                <span class="new_price">{{ productPrice }}</span>
+                <span v-if="discountRate" class="percentage">{{ discountRate }}</span>
+                <span v-if="product.listPrice > 0" class="old_price">{{ productListPrice }}</span>
               </div>
             </div>
             <div class="col-md-5">
@@ -117,10 +124,35 @@ export default {
   components: {
     ProductCarousel
   },
-  props: ['product'],
+  props: ['product', 'loading'],
   data () {
     return {
       options
+    }
+  },
+  computed: {
+    isLoading () {
+      return this.product.isLoading
+    },
+    images () {
+      return this.product?.images?.map(img => img.url) || []
+    },
+    discountRate () {
+      if (this.product?.listPrice) {
+        return ((this.product.price - this.product.listPrice) / this.product.listPrice).toLocaleString(undefined, {
+          style: 'percent'
+        })
+      } else {
+        return null
+      }
+    },
+    productPrice () {
+      const options = { style: 'currency', currency: 'RWF' }
+      return new Intl.NumberFormat('en', options).format(this.product?.price || 0)
+    },
+    productListPrice () {
+      const options = { style: 'currency', currency: 'RWF' }
+      return new Intl.NumberFormat('en', options).format(this.product?.listPrice || 0)
     }
   }
 }
