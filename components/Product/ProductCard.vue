@@ -17,18 +17,20 @@
         <h3>{{ product.name }}</h3>
       </a>
       <div class="price_box">
-        <span class="new_price">{{ product.price }} Rwf</span>
-        <span class="old_price">{{ product.listPrice }}</span>
+        <span class="new_price">{{ formatNumber(product.price) }} Rwf</span>
+        <span class="old_price">{{ formatNumber(product.listPrice) }}</span>
       </div>
       <ul>
         <li>
           <a
+
             href="#0"
             class="tooltip-1"
             data-toggle="tooltip"
             data-placement="left"
             title=""
             data-original-title="Add to favorites"
+            @click="addToCart"
           ><a-icon type="shopping-cart" /><span>Add to Cart</span></a>
         </li>
         <!-- <li>
@@ -47,10 +49,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'ProductCard',
   props: ['product'],
   computed: {
+    ...mapGetters({ cart: 'cart/products' }),
     producUrl () {
       return `/products/${this.product.id}`
     },
@@ -60,6 +64,14 @@ export default {
       } else {
         return ''
       }
+    }
+  },
+  methods: {
+    addToCart () {
+      this.$store.dispatch('cart/addToCart', this.product)
+    },
+    formatNumber (value) {
+      return new Intl.NumberFormat('en').format((value) || 0)
     }
   }
 }

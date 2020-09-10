@@ -1,43 +1,45 @@
 <template>
-  <div class="sub-header bg-white">
-    <div class="container-md">
-      <div class="row small-gutters align-items-center justify-content-between header-items">
-        <div class="col-xl-3 col-lg-3 col-6">
-          <nav class="categories menu">
-            <a-dropdown>
-              <a class="ant-dropdown-link category-menu" @click="e => e.preventDefault()">
-                <a-icon type="menu" size="large" class="menu-icon mr-2" /> Categories
-              </a>
-              <a-menu slot="overlay">
-                <a-menu-item v-for="category in categories" :key="category.id">
-                  <a :href="`/products?category=${category.name}`">{{ category.name }}</a>
-                </a-menu-item>
-              </a-menu>
-            </a-dropdown>
-          </nav>
-        </div>
-        <div class="col-xl-6 col-lg-7  d-none d-md-block">
-          <a-input-search placeholder="Search products.." size="large" style="background-color: #ccc;" class="custom-search-input" @search="onSearch" />
-        </div>
-        <div class="col-xl-3 col-lg-2 col-6">
-          <div class="row justify-content-end align-items-center">
-            <div class="col-6  d-xl-none d-lg-none d-block">
-              <a-button type="default" class="search-button float-right" icon="search" @click="showSearch" />
-            </div>
+  <div>
+    <div class="sub-header bg-white">
+      <div class="container-md">
+        <div class="row small-gutters align-items-center justify-content-between header-items">
+          <div class="col-xl-3 col-lg-3 col-6">
+            <nav class="categories menu">
+              <a-dropdown>
+                <a class="ant-dropdown-link category-menu" @click="e => e.preventDefault()">
+                  <a-icon type="menu" size="large" class="menu-icon mr-2" /> Categories
+                </a>
+                <a-menu slot="overlay">
+                  <a-menu-item v-for="category in categories" :key="category.id">
+                    <a :href="`/products?category=${category.name}`">{{ category.name }}</a>
+                  </a-menu-item>
+                </a-menu>
+              </a-dropdown>
+            </nav>
+          </div>
+          <div class="col-xl-6 col-lg-7  d-none d-md-block">
+            <a-input-search placeholder="Search products.." size="large" style="background-color: #ccc;" class="custom-search-input" @search="onSearch" />
+          </div>
+          <div class="col-xl-3 col-lg-2 col-6">
+            <div class="row justify-content-end align-items-center">
+              <div class="col-6  d-xl-none d-lg-none d-block">
+                <a-button type="default" class="search-button float-right" icon="search" @click="showSearch" />
+              </div>
 
-            <div class="col-3">
-              <a-badge count="5" :offset="[-2,10]" class="float-right">
-                <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
-              </a-badge>
+              <div class="col-3">
+                <a-badge :count="items.length" :offset="[-2,10]" class="float-right">
+                  <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
+                </a-badge>
+              </div>
             </div>
           </div>
-        </div>
-        <div class=" d-xl-none d-lg-none col-12">
-          <div id="mob-search" class="search_mob_wp">
-            <a-input placeholder="Search products.." size="large" class="custom-search-input" />
-            <a-button type="primary" block class="my-2">
-              Search
-            </a-button>
+          <div class=" d-xl-none d-lg-none col-12">
+            <div id="mob-search" class="search_mob_wp">
+              <a-input placeholder="Search products.." size="large" class="custom-search-input" />
+              <a-button type="primary" block class="my-2">
+                Search
+              </a-button>
+            </div>
           </div>
         </div>
       </div>
@@ -45,12 +47,12 @@
     <a-drawer
       title="Add Items"
       placement="right"
-      :closable="false"
+      :closable="true"
       :visible="drawerVisible"
-      :destroy-on-close="true"
+      :z-index="9999999"
       @close="closeDrawer"
     >
-      <shopping-cart />
+      <shopping-cart :items="cartItems" />
     </a-drawer>
   </div>
 </template>
@@ -64,16 +66,17 @@ export default {
   },
   data () {
     return {
-      drawerVisible: false
+      drawerVisible: false,
+      cartItems: []
     }
   },
   computed: {
-    ...mapGetters({ categories: 'categories/all' })
-    // currentCategory () {
-    //   console.log(this.$router)
-    //   return 'SHOEAS'
-    // }
+    ...mapGetters({ categories: 'categories/all', items: 'cart/items' })
   },
+  beforeUpdate () {
+    this.cartItems = Object.values(this.$store.state.cart.items)
+  },
+
   methods: {
     showDrawer () {
       this.drawerVisible = true
@@ -103,7 +106,7 @@ a.ant-dropdown-link.category-menu.ant-dropdown-trigger {
 .sub-header{
     border-bottom: 1px solid rgb(237, 237, 237);
     background-color: rgb(255, 255, 255);
-    z-index: 9999;
+    /* z-index: 3; */
 }
 .header-items{
     min-height: 60px;
