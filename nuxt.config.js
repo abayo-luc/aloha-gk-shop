@@ -40,7 +40,8 @@ export default {
   */
   plugins: [
     '@/plugins/antd-ui',
-    '@/plugins/bootstrap'
+    '@/plugins/bootstrap',
+    '@/plugins/vuex-persist'
   ],
   /*
   ** Auto import components
