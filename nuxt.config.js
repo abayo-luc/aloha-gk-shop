@@ -106,5 +106,8 @@ export default {
   loading: {
     color: '#c82f63',
     height: '5px'
+  },
+  generate: {
+    fallback: true
   }
 }
