@@ -13,7 +13,12 @@
 <script>
 
 export default {
-  props: ['images'],
+  props: {
+    images: {
+      type: Array,
+      default: () => []
+    }
+  },
   methods: {
     getImgUrl (i) {
       return this.images[i]

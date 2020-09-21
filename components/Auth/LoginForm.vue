@@ -3,6 +3,7 @@
     id="component-form-auth"
     :form="form"
     class="login-form"
+    method="post"
     @submit="handleSubmit"
   >
     <a-form-item>
@@ -13,6 +14,7 @@
         ]"
         size="large"
         placeholder="email"
+        v-bind="email"
       >
         <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
       </a-input>
@@ -26,6 +28,7 @@
         size="large"
         type="password"
         placeholder="Password"
+        v-bind="password"
       >
         <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
       </a-input>
@@ -41,6 +44,12 @@
 <script>
 export default {
   name: 'SignupForm',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
@@ -49,7 +58,7 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values)
+          this.$store.dispatch('auth/handleLogin', { email: this.email, password: this.password })
         }
       })
     }
