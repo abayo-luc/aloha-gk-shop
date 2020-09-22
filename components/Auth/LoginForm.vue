@@ -1,6 +1,6 @@
 <template>
   <a-form
-    id="component-form-auth"
+    id="components-form-demo-normal-login"
     :form="form"
     class="login-form"
     @submit="handleSubmit"
@@ -11,19 +11,20 @@
           'email',
           { rules: [{ required: true, message: 'Please input your email!' }] },
         ]"
-        size="large"
         placeholder="email"
       >
         <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
       </a-input>
     </a-form-item>
-    <a-form-item>
+    <a-form-item
+      :validate-status=" errors.password || errors.message? 'error' : undefined "
+      :help="errors.password || errors.message"
+    >
       <a-input
         v-decorator="[
           'password',
           { rules: [{ required: true, message: 'Please input your Password!' }] },
         ]"
-        size="large"
         type="password"
         placeholder="Password"
       >
@@ -31,16 +32,33 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" html-type="submit" class="login-form-button" size="large">
-        Login
+      <a-checkbox
+        v-decorator="[
+          'remember',
+          {
+            valuePropName: 'checked',
+            initialValue: true,
+          },
+        ]"
+      >
+        Remember me
+      </a-checkbox>
+      <a class="login-form-forgot" href="">
+        Forgot password
+      </a>
+      <a-button type="primary" html-type="submit" class="login-form-button" :loading="isAuthenticating">
+        Log in
       </a-button>
     </a-form-item>
   </a-form>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'SignupForm',
+  computed: {
+    ...mapGetters({ isAuthenticating: 'auth/isAuthenticating', errors: 'auth/errors' })
+  },
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
@@ -49,9 +67,21 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values)
+          this.$store.dispatch('auth/handleLogin', values)
         }
       })
     }
   }
 }
+</script>
+<style>
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+</style>
