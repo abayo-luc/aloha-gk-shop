@@ -8,23 +8,19 @@
     <div class="row">
       <div class="col-md-6">
         <div class="all">
-          <a-skeleton :loading="isLoading" />
+          <a-skeleton :loading="isLoading" :paragraph="{ rows: 8 }" />
           <product-carousel :images="images" />
         </div>
       </div>
       <div class="col-md-6">
         <!-- /page_header -->
         <div class="prod_info">
-          <a-skeleton :loading="isLoading" active paragraph rows="1" />
+          <a-skeleton :loading="isLoading" active :paragraph="{ rows: 1 }" />
           <h1>
             {{ product.name }}
           </h1>
           <span class="rating">
-            <a-icon type="star" class="voted" theme="filled" />
-            <a-icon type="star" class="voted" theme="filled" />
-            <a-icon type="star" class="voted" theme="filled" />
-            <a-icon type="star" class="voted" theme="filled" />
-            <a-icon type="star" />
+            <a-rate v-model="rate" allow-half />
             <em class="mx-1">4 reviews</em>
           </span>
           <a-skeleton :loading="isLoading" active />
@@ -127,7 +123,8 @@ export default {
   props: ['product', 'loading'],
   data () {
     return {
-      options
+      options,
+      rate: 2.5
     }
   },
   computed: {

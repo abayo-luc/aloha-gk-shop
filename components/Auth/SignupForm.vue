@@ -5,19 +5,24 @@
     class="login-form"
     @submit="handleSubmit"
   >
-    <a-form-item>
+    <a-form-item
+      :validate-status="errors.phoneNumber? 'error' : undefined "
+    >
       <a-input
         v-decorator="[
-          'userName',
-          { rules: [{ required: true, message: 'Please input your username!' }] },
+          'phoneNumber',
+          { rules: [{ required: true, message: 'Please input your phone number!' }] },
         ]"
         size="large"
-        placeholder="Username"
+        placeholder="Phone number"
       >
-        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+        <a-icon slot="prefix" type="phone" style="color: rgba(0,0,0,.25)" />
       </a-input>
     </a-form-item>
-    <a-form-item>
+    <a-form-item
+      :validate-status=" errors.email? 'error' : undefined "
+      :help="errors.email"
+    >
       <a-input
         v-decorator="[
           'email',
@@ -29,7 +34,10 @@
         <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
       </a-input>
     </a-form-item>
-    <a-form-item>
+    <a-form-item
+      :validate-status="errors.password ? 'error' : undefined "
+      :help="errors.password"
+    >
       <a-input
         v-decorator="[
           'password',
@@ -43,7 +51,7 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" html-type="submit" class="login-form-button" size="large">
+      <a-button type="primary" html-type="submit" class="login-form-button" size="large" :loading="isAuthenticating">
         Sign up
       </a-button>
     </a-form-item>
@@ -51,8 +59,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'SignupForm',
+  computed: {
+    ...mapGetters({ isAuthenticating: 'auth/isAuthenticating', errors: 'auth/regErrors' })
+  },
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
@@ -61,7 +73,7 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values)
+          this.$store.dispatch('auth/handleRegistration', values)
         }
       })
     }
