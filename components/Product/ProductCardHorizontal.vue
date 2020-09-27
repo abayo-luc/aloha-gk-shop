@@ -10,11 +10,9 @@
     </div>
     <div class="col-sm-8">
       <div class="rating">
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" />
+        <span>
+          <a-rate :value="product.avRating" disabled :allow-half="true" />
+        </span>
       </div>
       <a :href="producUrl">
         <h3>{{ product.name }}</h3>
@@ -26,7 +24,7 @@
       </div>
       <ul>
         <li>
-          <a-button type="primary">
+          <a-button type="primary" @click="addToCart">
             Add to cart
           </a-button>
         </li>
@@ -38,7 +36,12 @@
 <script>
 export default {
   name: 'ProductCardHorizontal',
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     producUrl () {
       return `/products/${this.product.id}`
@@ -66,6 +69,11 @@ export default {
     productListPrice () {
       const options = { style: 'currency', currency: 'RWF' }
       return new Intl.NumberFormat('en', options).format(this.product?.listPrice || 0)
+    }
+  },
+  methods: {
+    addToCart () {
+      this.$store.dispatch('cart/addToCart', this.product)
     }
   }
 }

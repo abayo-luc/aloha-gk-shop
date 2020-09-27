@@ -47,17 +47,29 @@ export default {
   },
   data () {
     return {
-      visible: false,
+      visible: this.isVisible,
       openedModal: null,
       modalTitle: '',
       modalButtonTitle: ''
     }
   },
   computed: {
-    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated' })
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', isVisible: 'auth/isLoginOpen' })
   },
+  // watch: {
+  //   isVisible: {
+  //     get (params) {
+  //       return this.visible
+  //     },
+  //     set  (newVal) {
+  //       console.log(newVal, '>>>>>>>>>>>>>>>>>>')
+  //       this.visible = newVal
+  //     }
+  //   }
+  // },
   methods: {
     showModal (value, title, buttonTitle) {
+      // this.$store.dispatch('auth/handleOpenAuth', true)
       this.visible = true
       this.openedModal = value
       this.modalTitle = title
@@ -67,6 +79,7 @@ export default {
       this.visible = false
     },
     handleCancel (e) {
+      // this.$store.dispatch('auth/handleOpenAuth', false)
       this.visible = false
     },
     onLogout () {

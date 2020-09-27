@@ -4,7 +4,9 @@ const AUTH_ERROR = 'AUTH_ERROR'
 const REGISTRATION_ERROR = 'REGISTRATION_ERROR'
 const SET_LOADING = 'SET_LOADING'
 const SET_AUTH_DATA = 'SET_AUTH_DATA'
+const SET_LOGIN_FORM_STATUS = 'SET_LOGIN_FORM_STATUS'
 export const state = {
+  isLoginOpen: false,
   currentUser: null,
   errors: {},
   regErrors: {},
@@ -41,6 +43,9 @@ export const actions = {
   },
   handleLogout ({ commit }) {
     commit(SET_AUTH_DATA, { token: null, user: null })
+  },
+  handleOpenAuth ({ commit }, value) {
+    commit(SET_LOGIN_FORM_STATUS, value)
   }
 }
 
@@ -61,6 +66,9 @@ export const mutations = {
   [SET_AUTH_DATA] (state, data) {
     state.currentUser = data.user
     state.token = data.token
+  },
+  [SET_LOGIN_FORM_STATUS] (state, status) {
+    state.isLoginOpen = status
   }
 }
 
@@ -68,5 +76,6 @@ export const getters = {
   isAuthenticating: state => state.isLoaing,
   regErrors: state => state.regErrors,
   errors: state => state.errors,
-  isAuthenticated: state => !isValueEmpty(state.token)
+  isAuthenticated: state => !isValueEmpty(state.token),
+  isLoginOpen: state => state.isLoginOpen
 }

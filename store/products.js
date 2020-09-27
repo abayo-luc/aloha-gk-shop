@@ -1,28 +1,33 @@
 const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS'
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCTS'
-
+const SET_IS_LOADING = 'SET_IS_LOADING'
 export const state = () => ({
   list: [],
-  product: { isLoading: true, reviews: [] }
+  product: { isLoading: true, reviews: [] },
+  count: 0,
+  limit: 25,
+  pages: 0
 })
 
 export const actions = {
-  async fetchAll ({ commit }, data) {
+  async fetchAll ({ commit, state }, data) {
+    commit(SET_IS_LOADING, true)
     try {
-      let params = ''
+      let params = `?limit=${state.limit}`
       if (data) {
-        params = Object.keys(data).reduce((prev, current) => `${prev}${prev ? '&' : '?'}${current}=${data[current]}`, '')
+        params = Object.keys(data).reduce((prev, current) => `${prev}&${current}=${data[current]}`, params)
       }
       const {
-        data: { rows }
+        data: { rows = [], count = 0 }
       } = await this.$axios.$get(
         `/products${params}`,
         { progress: true },
         { params: data }
       )
-      commit(SET_ALL_PRODUCTS, rows || [])
+      commit(SET_ALL_PRODUCTS, { rows, count })
     } catch (error) {
-      console.log(error)
+      commit(SET_IS_LOADING)
+      alert(error.message)
     }
   },
   async fetchSingleProduct ({ commit }, id) {
@@ -38,8 +43,14 @@ export const actions = {
 }
 
 export const mutations = {
-  [SET_ALL_PRODUCTS] (state, products) {
-    state.list = products
+  [SET_IS_LOADING] (state, status = false) {
+    state.isLoading = status
+  },
+  [SET_ALL_PRODUCTS] (state, data) {
+    state.list = data.rows
+    state.count = data.count
+    state.isLoading = false
+    state.pages = Math.ceil(data.count / state.limit)
   },
   [SET_SINGLE_PRODUCT] (state, product) {
     state.product = { ...product, isLoading: false }
@@ -48,5 +59,8 @@ export const mutations = {
 
 export const getters = {
   all: state => state.list,
-  one: state => state.product
+  count: state => state.count,
+  one: state => state.product,
+  isFetching: state => state.isLoading,
+  pages: state => state.pages
 }

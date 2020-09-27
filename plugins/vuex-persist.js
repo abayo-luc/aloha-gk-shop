@@ -4,7 +4,12 @@ export default ({ store }) => {
   window.onNuxtReady(() => {
     new VuexPersistence({
       storage: window.localStorage,
-      reducer: state => ({ cart: state.cart, auth: { token: state.auth.token, currentUser: state.auth.currentUser } })
+      reducer: state => ({
+        cart: {
+          items: state.cart.items
+        },
+        auth: { token: state.auth.token, currentUser: state.auth.currentUser }
+      })
     }).plugin(store)
   })
 }

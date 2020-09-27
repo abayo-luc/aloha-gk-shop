@@ -18,7 +18,7 @@
             </nav>
           </div>
           <div class="col-xl-6 col-lg-7  d-none d-md-block">
-            <a-input-search placeholder="Search products.." size="large" style="background-color: #ccc;" class="custom-search-input" @search="onSearch" />
+            <a-input-search placeholder="Search products.." size="large" style="background-color: #ccc;" class="custom-search-input" @input="onSearch" />
           </div>
           <div class="col-xl-3 col-lg-2 col-6">
             <div class="row justify-content-end align-items-center">
@@ -27,7 +27,7 @@
               </div>
 
               <div class="col-3">
-                <a-badge :count="items.length" :offset="[-2,10]" class="float-right">
+                <a-badge :count="totalInCart" :offset="[-2,10]" class="float-right">
                   <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
                 </a-badge>
               </div>
@@ -52,7 +52,7 @@
       :z-index="9999999"
       @close="closeDrawer"
     >
-      <shopping-cart :items="cartItems" />
+      <shopping-cart :items="items" :on-close="closeDrawer" />
     </a-drawer>
   </div>
 </template>
@@ -66,12 +66,19 @@ export default {
   },
   data () {
     return {
-      drawerVisible: false,
-      cartItems: []
+      drawerVisible: this.isOpen,
+      searchQuery: '',
+      searchTimeOut: null
     }
   },
   computed: {
-    ...mapGetters({ categories: 'categories/all', items: 'cart/items' })
+    ...mapGetters({ categories: 'categories/all', items: 'cart/items', isOpen: 'cart/isCartOpen' }),
+    totalInCart () {
+      return this.items.length
+    }
+  },
+  mounted () {
+    this.drawerVisible = this.isOpen
   },
   beforeUpdate () {
     this.cartItems = Object.values(this.$store.state.cart.items)
@@ -92,8 +99,19 @@ export default {
         el.classList.add('search-visible')
       }
     },
-    onSearch () {
-      console.log('>>>>>>>>>>>>>>>>>>>>')
+    fetchData (searchQuery) {
+      this.$store.dispatch('products/fetchAll', {
+        search: searchQuery
+      })
+    },
+    onSearch (e) {
+      const { value } = e.target
+      if (this.searchTimeOut) {
+        clearTimeout(this.searchTimeOut)
+      }
+      this.searchTimeOut = setTimeout(() => {
+        this.fetchData(value)
+      }, 500)
     }
   }
 }
