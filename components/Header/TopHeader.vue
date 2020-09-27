@@ -9,10 +9,13 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <a-button icon="user" class="mr-md-2 my-1" @click="showModal('login', 'User Login', 'Login')">
+          <a-button v-if="!isAuthenticated" icon="login" class="mr-md-2 my-1" @click="showModal('login', 'User Login', 'Login')">
             Login
           </a-button>
-          <a-button ghost icon="user-add" class="my-1" @click="showModal('sign-up', 'User Registration', 'Submit')">
+          <a-button v-else icon="logout" class="mr-md-2 my-1" @click="onLogout">
+            Logout
+          </a-button>
+          <a-button v-if="!isAuthenticated" ghost icon="user-add" class="my-1" @click="showModal('sign-up', 'User Registration', 'Submit')">
             Register
           </a-button>
         </b-navbar-nav>
@@ -33,6 +36,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import LoginForm from '../Auth/LoginForm.vue'
 import SignupForm from '../Auth/SignupForm.vue'
 export default {
@@ -49,6 +53,9 @@ export default {
       modalButtonTitle: ''
     }
   },
+  computed: {
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated' })
+  },
   methods: {
     showModal (value, title, buttonTitle) {
       this.visible = true
@@ -61,6 +68,9 @@ export default {
     },
     handleCancel (e) {
       this.visible = false
+    },
+    onLogout () {
+      this.$store.dispatch('auth/handleLogout')
     }
   }
 }

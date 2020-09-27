@@ -4,7 +4,12 @@
     <product-cateogries />
     <div class="container-md container-fluid ">
       <product-header />
-      <div class="row small-gutters">
+      <div v-if="products.length === 0" class="row small-gutters">
+        <div v-for="indicator in 25" :key="indicator" class="col-6 col-md-4 col-xl-3">
+          <a-skeleton active />
+        </div>
+      </div>
+      <div v-else class="row small-gutters">
         <div v-for="product in products" :key="product.id" class="col-6 col-md-4 col-xl-3">
           <product-card :product="product" />
         </div>
