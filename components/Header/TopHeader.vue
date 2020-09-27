@@ -79,17 +79,6 @@ export default {
   computed: {
     ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', isVisible: 'auth/isLoginOpen', user: 'auth/currentUser' })
   },
-  // watch: {
-  //   isVisible: {
-  //     get (params) {
-  //       return this.visible
-  //     },
-  //     set  (newVal) {
-  //       console.log(newVal, '>>>>>>>>>>>>>>>>>>')
-  //       this.visible = newVal
-  //     }
-  //   }
-  // },
   methods: {
     showModal (value, title, buttonTitle) {
       // this.$store.dispatch('auth/handleOpenAuth', true)
