@@ -8,14 +8,14 @@
     <div class="row">
       <div class="col-md-6">
         <div class="all">
-          <a-skeleton :loading="isLoading" :paragraph="{ rows: 8 }" />
+          <a-skeleton :loading="isProductLoading" :paragraph="{ rows: 8 }" />
           <product-carousel :images="images" />
         </div>
       </div>
       <div class="col-md-6">
         <!-- /page_header -->
         <div class="prod_info">
-          <a-skeleton :loading="isLoading" active :paragraph="{ rows: 1 }" />
+          <a-skeleton :loading="isProductLoading" active :paragraph="{ rows: 1 }" />
           <h1>
             {{ product.name }}
           </h1>
@@ -23,7 +23,7 @@
             <a-rate v-model="rate" allow-half />
             <em class="mx-1">4 reviews</em>
           </span>
-          <a-skeleton :loading="isLoading" active />
+          <a-skeleton :loading="isProductLoading" active />
           <p>
             <!-- <small>SKU: MTKRY-001</small> -->
             <!-- <br> -->
@@ -82,7 +82,7 @@
             </div>
             <div class="col-md-5">
               <div class="btn_add_to_cart my-2">
-                <a-button type="primary" block icon="shopping-cart">
+                <a-button type="primary" block icon="shopping-cart" @click="addToCart">
                   ADD TO CART
                 </a-button>
               </div>
@@ -120,7 +120,16 @@ export default {
   components: {
     ProductCarousel
   },
-  props: ['product', 'loading'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    },
+    isLoading: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
       options,
@@ -128,7 +137,7 @@ export default {
     }
   },
   computed: {
-    isLoading () {
+    isProductLoading () {
       return this.product.isLoading
     },
     images () {
@@ -150,6 +159,11 @@ export default {
     productListPrice () {
       const options = { style: 'currency', currency: 'RWF' }
       return new Intl.NumberFormat('en', options).format(this.product?.listPrice || 0)
+    }
+  },
+  methods: {
+    addToCart () {
+      this.$store.dispatch('cart/addToCart', this.product)
     }
   }
 }

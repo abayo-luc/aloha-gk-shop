@@ -3,9 +3,9 @@
     <a-card class="product-item">
       <figure>
         <span class="ribbon off">-30%</span>
-        <a :href="producUrl">
+        <nuxt-link :to="producUrl">
           <img class="img-fluid lazy loaded" :src="getIndexImage" :data-src="getIndexImage" alt="" data-was-processed="true">
-        </a>
+        </nuxt-link>
         <div v-if="product.inStock <= 0" class="countdown">
           Out of stock
         </div>
@@ -13,9 +13,9 @@
       <div class="rating">
         <a-icon type="star" /><a-icon type="star" /><a-icon type="star" /><a-icon type="star" /><a-icon type="star" />
       </div>
-      <a :href="producUrl">
+      <nuxt-link :to="producUrl">
         <h3>{{ product.name }}</h3>
-      </a>
+      </nuxt-link>
       <div class="price_box">
         <span class="new_price">{{ formatNumber(product.price) }} Rwf</span>
         <span class="old_price">{{ formatNumber(product.listPrice) }}</span>
@@ -52,7 +52,12 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'ProductCard',
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     ...mapGetters({ cart: 'cart/products' }),
     producUrl () {

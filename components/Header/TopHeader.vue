@@ -1,9 +1,11 @@
 <template>
   <div>
     <b-navbar toggleable="lg" class="navbar py-md-2">
-      <b-navbar-brand href="/">
-        <span class="text-white">AlohaGK</span>
-      </b-navbar-brand>
+      <nuxt-link to="/">
+        <b-navbar-brand>
+          <span class="text-white">AlohaGK</span>
+        </b-navbar-brand>
+      </nuxt-link>
 
       <b-navbar-toggle target="nav-collapse" />
 
@@ -12,9 +14,30 @@
           <a-button v-if="!isAuthenticated" icon="login" class="mr-md-2 my-1" @click="showModal('login', 'User Login', 'Login')">
             Login
           </a-button>
-          <a-button v-else icon="logout" class="mr-md-2 my-1" @click="onLogout">
-            Logout
-          </a-button>
+
+          <a-dropdown v-else :trigger="['click', 'hover']">
+            <a-avatar style="color: #f56a00; backgroundColor: #fde3cf">
+              {{ user.names || 'U' }}
+            </a-avatar>
+            <a-menu slot="overlay">
+              <a-menu-item key="0">
+                <nuxt-link to="http://www.alipay.com/">
+                  Profile
+                </nuxt-link>
+              </a-menu-item>
+              <a-menu-item key="1">
+                <nuxt-link to="http://www.taobao.com/">
+                  Orders
+                </nuxt-link>
+              </a-menu-item>
+              <a-menu-divider />
+              <a-menu-item key="3">
+                <a-button icon="logout" class="mr-md-2 my-1" @click="onLogout">
+                  Logout
+                </a-button>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
           <a-button v-if="!isAuthenticated" ghost icon="user-add" class="my-1" @click="showModal('sign-up', 'User Registration', 'Submit')">
             Register
           </a-button>
@@ -47,17 +70,29 @@ export default {
   },
   data () {
     return {
-      visible: false,
+      visible: this.isVisible,
       openedModal: null,
       modalTitle: '',
       modalButtonTitle: ''
     }
   },
   computed: {
-    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated' })
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', isVisible: 'auth/isLoginOpen', user: 'auth/currentUser' })
   },
+  // watch: {
+  //   isVisible: {
+  //     get (params) {
+  //       return this.visible
+  //     },
+  //     set  (newVal) {
+  //       console.log(newVal, '>>>>>>>>>>>>>>>>>>')
+  //       this.visible = newVal
+  //     }
+  //   }
+  // },
   methods: {
     showModal (value, title, buttonTitle) {
+      // this.$store.dispatch('auth/handleOpenAuth', true)
       this.visible = true
       this.openedModal = value
       this.modalTitle = title
@@ -67,6 +102,7 @@ export default {
       this.visible = false
     },
     handleCancel (e) {
+      // this.$store.dispatch('auth/handleOpenAuth', false)
       this.visible = false
     },
     onLogout () {

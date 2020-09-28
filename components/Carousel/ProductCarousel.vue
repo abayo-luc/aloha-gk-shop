@@ -1,9 +1,9 @@
 <template>
   <div class="carousel">
     <a-carousel arrows dots-class="slick-dots slick-thumb">
-      <a slot="customPaging" slot-scope="props">
+      <div slot="customPaging" slot-scope="props">
         <img :src="getImgUrl(props.i)">
-      </a>
+      </div>
       <div v-for="(image, index) in images" :key="'image'+index">
         <img :src="image">
       </div>
@@ -13,7 +13,12 @@
 <script>
 
 export default {
-  props: ['images'],
+  props: {
+    images: {
+      type: Array,
+      required: true
+    }
+  },
   methods: {
     getImgUrl (i) {
       return this.images[i]

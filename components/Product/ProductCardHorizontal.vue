@@ -1,24 +1,26 @@
 <template>
   <div class="row row_item">
-    <div class="col-sm-4">
+    <div class="col-sm-4 product-image">
       <figure>
         <span class="ribbon off">{{ discountRate }}</span>
-        <a :href="producUrl">
-          <img class="img-fluid lazy loaded" :src="getIndexImage" :data-src="getIndexImage" alt="" data-was-processed="true">
-        </a>
+        <nuxt-link :to="producUrl">
+          <img
+            class="img-fluid lazy loaded"
+            :src="getIndexImage"
+            :data-src="getIndexImage"
+            alt=""
+            data-was-processed="true"
+          >
+        </nuxt-link>
+        <div v-if="product.avRating" class="rating">
+          <a-rate :value="product.avRating" disabled :allow-half="true" />
+        </div>
       </figure>
     </div>
     <div class="col-sm-8">
-      <div class="rating">
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" class="icon-star voted" theme="filled" />
-        <a-icon type="star" />
-      </div>
-      <a :href="producUrl">
+      <nuxt-link :to="producUrl">
         <h3>{{ product.name }}</h3>
-      </a>
+      </nuxt-link>
       <p>{{ product.shortDescription }}</p>
       <div class="price_box">
         <span class="new_price">{{ productPrice }}</span>
@@ -26,7 +28,12 @@
       </div>
       <ul>
         <li>
-          <a-button type="primary">
+          <!-- <div class="rating">
+            <span>
+              <a-rate :value="product.avRating" disabled :allow-half="true" />
+            </span>
+          </div> -->
+          <a-button type="primary" @click="addToCart">
             Add to cart
           </a-button>
         </li>
@@ -38,7 +45,12 @@
 <script>
 export default {
   name: 'ProductCardHorizontal',
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     producUrl () {
       return `/products/${this.product.id}`
@@ -52,7 +64,10 @@ export default {
     },
     discountRate () {
       if (this.product?.listPrice) {
-        return ((this.product.price - this.product.listPrice) / this.product.listPrice).toLocaleString(undefined, {
+        return (
+          (this.product.price - this.product.listPrice) /
+          this.product.listPrice
+        ).toLocaleString(undefined, {
           style: 'percent'
         })
       } else {
@@ -61,126 +76,144 @@ export default {
     },
     productPrice () {
       const options = { style: 'currency', currency: 'RWF' }
-      return new Intl.NumberFormat('en', options).format(this.product?.price || 0)
+      return new Intl.NumberFormat('en', options).format(
+        this.product?.price || 0
+      )
     },
     productListPrice () {
       const options = { style: 'currency', currency: 'RWF' }
-      return new Intl.NumberFormat('en', options).format(this.product?.listPrice || 0)
+      return new Intl.NumberFormat('en', options).format(
+        this.product?.listPrice || 0
+      )
+    }
+  },
+  methods: {
+    addToCart () {
+      this.$store.dispatch('cart/addToCart', this.product)
     }
   }
 }
 </script>
 
 <style scoped>
-.row_item{
-    margin-bottom: 30px;
+.row_item {
+  margin-bottom: 30px;
 }
 .row_item figure {
-    position: relative;
-    margin-bottom: 0;
-    -webkit-box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  margin-bottom: 0;
+  -webkit-box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.25);
 }
 .ribbon.off {
-    background-color: #F33;
+  background-color: #f33;
 }
 .ribbon.off:before {
-    border-color: #F33 transparent transparent;
+  border-color: #f33 transparent transparent;
 }
 .ribbon:before {
-    border-style: solid solid solid none;
-    border-width: 9px 9px 9px 0;
-    bottom: -15px;
-    content: "";
-    left: 0;
-    position: absolute;
-    width: 9px;
+  border-style: solid solid solid none;
+  border-width: 9px 9px 9px 0;
+  bottom: -15px;
+  content: "";
+  left: 0;
+  position: absolute;
+  width: 9px;
 }
 .ribbon {
-    color: #fff;
-    display: inline-block;
-    font-size: 11px;
-    font-size: 0.6875rem;
-    left: 10px;
-    line-height: 1;
-    position: absolute;
-    text-align: center;
-    text-transform: uppercase;
-    top: 10px;
-    padding: 7px 10px;
-    font-weight: 600;
-    min-width: 45px;
-    z-index: 1;
+  color: #fff;
+  display: inline-block;
+  font-size: 11px;
+  font-size: 0.6875rem;
+  left: 10px;
+  line-height: 1;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 10px;
+  padding: 7px 10px;
+  font-weight: 600;
+  min-width: 45px;
+  z-index: 1;
 }
-.row_item .rating {
-    margin-bottom: 5px;
+.rating {
+  margin-bottom: 5px;
+  position: absolute;
+  bottom: -35px;
 }
 .rating i.voted {
-    color: #fec348;
+  color: #fec348;
 }
 .row_item a h3 {
-    font-size: 18px;
-    font-size: 1.125rem;
-    color: #444;
+  font-size: 18px;
+  font-size: 1.125rem;
+  color: #444;
 }
 .row_item p {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .row_item .price_box {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .new_price {
-    color: #004dda;
-    font-weight: 500;
-    font-size: 1.3125rem;
+  color: #004dda;
+  font-weight: 500;
+  font-size: 1.3125rem;
 }
 .old_price {
-    color: #999;
-    text-decoration: line-through;
-    display: inline-block;
-    white-space: nowrap;
-    font-weight: 500;
-    font-size: 16px;
-    font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 16px;
+  font-size: 1rem;
 }
 .row_item ul {
-    margin: 15px 0 0 0;
-    padding: 0;
-    list-style: none;
+  margin: 15px 0 0 0;
+  padding: 0;
+  list-style: none;
 }
 .row_item ul {
-    margin: 15px 0 0 0;
-    padding: 0;
-    list-style: none;
+  margin: 15px 0 0 0;
+  padding: 0;
+  list-style: none;
 }
 .row_item ul li {
-    display: inline-block;
+  display: inline-block;
 }
 
-a.btn_1, .btn_1 {
-    border: none;
-    color: #fff;
-    background: #004dda;
-    outline: none;
-    cursor: pointer;
-    display: inline-block;
-    text-decoration: none;
-    padding: 12px 25px;
-    color: #fff;
-    font-weight: 500;
-    text-align: center;
-    font-size: 14px;
-    font-size: 0.875rem;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    border-radius: 3px;
-    line-height: normal;
+a.btn_1,
+.btn_1 {
+  border: none;
+  color: #fff;
+  background: #004dda;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 25px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+  font-size: 0.875rem;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  line-height: normal;
+}
+
+.product-image {
+  align-content: center;
+  display: flex;
+  align-items: center;
 }
 </style>

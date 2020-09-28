@@ -1,44 +1,35 @@
 <template>
   <ul id="banners_grid" class="clearfix">
-    <li>
-      <a href="#0" class="img_container">
-        <img src="https://images.unsplash.com/photo-1501618669935-18b6ecb13d6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1932&q=80" data-src="img/banner_1.jpg" alt="" class="lazy loaded" data-was-processed="true">
+    <li v-for="category in categories" :key="category.id">
+      <div class="img_container">
+        <img :src="category.image" alt="" class="lazy loaded" data-was-processed="true">
         <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
-          <h3>Category 1</h3>
+          <h3>{{ category.name }}</h3>
           <div>
-            <a-button type="primary">View Category</a-button>
+            <nuxt-link :to="goTo(category.id)">
+              <a-button type="primary">
+                View Category
+              </a-button>
+            </nuxt-link>
           </div>
         </div>
-      </a>
-    </li>
-    <li>
-      <a href="#0" class="img_container">
-        <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="" class="lazy loaded" data-was-processed="true">
-        <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
-          <h3>Category 3</h3>
-          <div>
-            <a-button type="primary">View Category</a-button>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a href="#0" class="img_container">
-        <img src="https://images.unsplash.com/photo-1578704694513-08946e996642?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" data-src="img/banner_3.jpg" alt="" class="lazy loaded" data-was-processed="true">
-        <div class="short_info opacity-mask" data-opacity-mask="rgba(183, 69, 88, 0.5)" style="background-color: rgba(183, 69, 88, 0.5);">
-          <h3>categoery 2</h3>
-          <div>
-            <a-button type="primary">View Category</a-button>
-          </div>
-        </div>
-      </a>
+      </div>
     </li>
   </ul>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'ProductCategories'
+  name: 'ProductCategories',
+  computed: {
+    ...mapGetters({ categories: 'categories/topThree' })
+  },
+  methods: {
+    goTo (id) {
+      return `/products?categoryId=${id}`
+    }
+  }
 }
 </script>
 <style lang="css" scoped>
@@ -65,7 +56,7 @@ ul#banners_grid li:last-child {
     border-right: none;
   }
 }
-ul#banners_grid li a.img_container {
+ul#banners_grid li div.img_container {
   position: relative;
   overflow: hidden;
   z-index: 0;
@@ -74,13 +65,13 @@ ul#banners_grid li a.img_container {
   height: 250px;
 }
 @media (max-width: 767px) {
-  ul#banners_grid li a.img_container {
+  ul#banners_grid li div.img_container {
     width: 100%;
     float: none;
     height: 210px;
   }
 }
-ul#banners_grid li a.img_container img {
+ul#banners_grid li div.img_container img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -104,26 +95,26 @@ ul#banners_grid li a.img_container img {
   backface-visibility: hidden;
 }
 @media (max-width: 1199px) {
-  ul#banners_grid li a.img_container img {
+  ul#banners_grid li div.img_container img {
     height: 100%;
     width: auto;
     max-width: inherit;
   }
 }
 @media (max-width: 767px) {
-  ul#banners_grid li a.img_container img {
+  ul#banners_grid li div.img_container img {
     width: 100%;
     height: auto;
   }
 }
-ul#banners_grid li a.img_container:hover img {
+ul#banners_grid li div.img_container:hover img {
   -webkit-transform: translate(-50%, -50%) scale(1.02);
   -moz-transform: translate(-50%, -50%) scale(1.02);
   -ms-transform: translate(-50%, -50%) scale(1.02);
   -o-transform: translate(-50%, -50%) scale(1.02);
   transform: translate(-50%, -50%) scale(1.02);
 }
-ul#banners_grid li a.img_container .short_info {
+ul#banners_grid li div.img_container .short_info {
   position: absolute;
   left: 0;
   top: 0%;
@@ -142,7 +133,7 @@ ul#banners_grid li a.img_container .short_info {
   transition: all 0.4s ease;
   text-align: center;
 }
-ul#banners_grid li a.img_container .short_info h3 {
+ul#banners_grid li div.img_container .short_info h3 {
   color: #fff;
   font-size: 24px;
   font-size: 1.5rem;
@@ -153,11 +144,11 @@ ul#banners_grid li a.img_container .short_info h3 {
   font-weight: 900;
 }
 @media (max-width: 767px) {
-  ul#banners_grid li a.img_container .short_info h3 {
+  ul#banners_grid li div.img_container .short_info h3 {
     margin-top: -20px;
   }
 }
-ul#banners_grid li a.img_container .short_info div {
+ul#banners_grid li div.img_container .short_info div {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -177,13 +168,13 @@ ul#banners_grid li a.img_container .short_info div {
   -ms-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
-ul#banners_grid li a.img_container .short_info div .btn_1 {
+ul#banners_grid li div.img_container .short_info div .btn_1 {
   padding: 10px 22px;
   font-size: 13px;
   font-size: 0.8125rem;
 }
 @media (max-width: 767px) {
-  ul#banners_grid li a.img_container .short_info div {
+  ul#banners_grid li div.img_container .short_info div {
     opacity: 1;
     visibility: visible;
     -webkit-transform: translateY(-50px);
@@ -193,7 +184,7 @@ ul#banners_grid li a.img_container .short_info div .btn_1 {
     transform: translateY(-50px);
   }
 }
-ul#banners_grid li a.img_container .short_info:hover div {
+ul#banners_grid li div.img_container .short_info:hover div {
   visibility: visible;
   opacity: 1;
   -webkit-transform: translateY(-50px);
