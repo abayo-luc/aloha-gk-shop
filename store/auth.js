@@ -77,5 +77,6 @@ export const getters = {
   regErrors: state => state.regErrors,
   errors: state => state.errors,
   isAuthenticated: state => !isValueEmpty(state.token),
-  isLoginOpen: state => state.isLoginOpen
+  isLoginOpen: state => state.isLoginOpen,
+  currentUser: state => state.currentUser
 }

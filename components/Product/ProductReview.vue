@@ -75,7 +75,12 @@
 <script>
 export default {
   name: 'ProductReview',
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     isLoading () {
       return this.product.isLoading
@@ -83,7 +88,7 @@ export default {
   },
   methods: {
     callback (key) {
-      console.log(key)
+      // console.log(key)
     }
   }
 }

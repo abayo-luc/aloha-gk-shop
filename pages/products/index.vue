@@ -6,10 +6,13 @@
         <div class="col-lg-3">
           <filter-tools />
         </div>
-        <div v-if="isFetching " class="col-lg-9">
+        <div v-if="isFetching" class="col-lg-9">
           <div v-for="indicator in 10" :key="indicator" class="col">
             <a-skeleton active avatar style="width:80%" />
           </div>
+        </div>
+        <div v-else-if="products.length == 0" class="col-lg-9 my-5">
+          <a-empty />
         </div>
         <div v-else class="col-lg-9">
           <product-card-horizontal v-for="product in products" :key="product.id" :product="product" />

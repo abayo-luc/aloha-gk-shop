@@ -45,16 +45,22 @@
       </template>
     </a-table>
     <div class="my-5 float-right">
+      <a-button size="large" @click="handleLinkClick('/view_cart')">
+        View Cart
+      </a-button>
       <a-button type="primary" size="large" @click="handleCheckOut">
         Checkout
       </a-button>
     </div>
   </div>
   <div v-else>
+    <a-empty />
     <div class="empty-cart">
-      <a-button type="dashed" html-type="a" href="/products">
-        Expolore Products
-      </a-button>
+      <nuxt-link to="/products">
+        <a-button type="dashed">
+          Expolore Products
+        </a-button>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -78,6 +84,7 @@ export default {
   },
   data () {
     return {
+      shippingFee: 1000,
       searchText: '',
       searchInput: null,
       searchedColumn: '',
@@ -120,12 +127,12 @@ export default {
               default:
                 return (
                   <div>
-                    <a
-                      href={`/products/${item.productId}`}
+                    <nuxt-link
+                      to={`/products/${item.productId}`}
                       class="text-dark d-inline-block align-middle"
                     >
                       {item.product.name}
-                    </a>
+                    </nuxt-link>
                     <span class="text-muted font-weight-normal font-italic d-block">
                       {item.product.categories?.map(c => (
                         <span class="badge badge-pill badge-light">
@@ -244,7 +251,7 @@ export default {
     getSum () {
       const sum = this.items.reduce((prev, current) => {
         return prev + current.unitCost * current.quantity
-      }, 0)
+      }, this.shippingFee)
       return new Intl.NumberFormat('en').format(sum)
     },
     deliverFee () {
@@ -285,6 +292,9 @@ export default {
         ...this.selectedRowKeys.map(index => items[index]?.productId)
       ].filter(x => x !== undefined)
       this.$store.dispatch('cart/removeFromCart', ids)
+    },
+    handleLinkClick (url) {
+      this.$router.push(url)
     },
     handleCheckOut () {
       if (!this.isAuthenticated) { this.onClose() }

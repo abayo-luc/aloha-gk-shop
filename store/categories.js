@@ -7,10 +7,12 @@ export const state = {
 export const actions = {
   async fetchAll ({ commit }) {
     try {
-      const { data: { rows } } = await this.$axios.$get('/categories', { progress: true })
-      commit(SET_ALL_CATEGORIES, rows || [])
+      const { data } = await this.$axios.$get('/categories', {
+        progress: true
+      })
+      commit(SET_ALL_CATEGORIES, data || [])
     } catch (error) {
-      console.log(error)
+      alert(error.message)
     }
   }
 }
@@ -22,5 +24,6 @@ export const mutations = {
 }
 
 export const getters = {
-  all: state => state.list
+  all: state => state.list,
+  topThree: state => [...state.list].sort((a, b) => b.productsCounter - a.productsCounter).slice(0, 3)
 }

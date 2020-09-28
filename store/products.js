@@ -37,7 +37,7 @@ export const actions = {
       })
       commit(SET_SINGLE_PRODUCT, response?.data || {})
     } catch (error) {
-      console.log(error)
+      alert(error.message)
     }
   }
 }

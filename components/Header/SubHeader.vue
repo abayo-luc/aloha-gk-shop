@@ -11,7 +11,9 @@
                 </a>
                 <a-menu slot="overlay">
                   <a-menu-item v-for="category in categories" :key="category.id">
-                    <a :href="`/products?category=${category.name}`">{{ category.name }}</a>
+                    <nuxt-link :to="`/products?category=${category.name}`">
+                      {{ category.name }}
+                    </nuxt-link>
                   </a-menu-item>
                 </a-menu>
               </a-dropdown>
