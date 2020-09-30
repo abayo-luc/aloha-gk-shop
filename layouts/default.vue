@@ -1,8 +1,21 @@
 <template>
   <div>
-    <top-header />
+    <notifications group="general" :close-on-click="true" :ignore-duplicates="true">
+      <template slot="body" slot-scope="props">
+        <div class="vue-notification-template vue-notification" :class="props.item.type">
+          <div class="notification-title">
+            {{ props.item.title }}
+          </div>
+          <a class="close" @click="props.close">
+            <a-icon type="close" />
+          </a>
+          <div v-html="props.item.text" />
+        </div>
+      </template>
+    </notifications>
+    <top-header ref="header" />
     <div id="sub-header">
-      <sub-header />
+      <sub-header ref="subheader" :show-login-modal="showLoginModal" />
     </div>
     <main class="content">
       <nuxt />
@@ -21,10 +34,8 @@ export default {
     AppFooter,
     SubHeader
   },
-  beforeMount () {
-    this.$store.dispatch('categories/fetchAll')
-  },
   mounted () {
+    this.$store.dispatch('categories/fetchAll')
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed () {
@@ -39,8 +50,13 @@ export default {
       } else {
         header.classList.remove('sticky')
       }
+    },
+    showLoginModal () {
+      this.$refs.header.showAuthModel('login', 'User Login', 'Login')
     }
+
   }
+
 }
 </script>
 <style lang="scss" scoped>

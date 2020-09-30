@@ -16,6 +16,7 @@
       :scroll="{ y: 500 }"
       :pagination="false"
       :row-selection="rowSelection"
+      :row-key="record => record.productId"
     >
       <div slot="filterDropdown" style="padding: 8px" />
       <a-icon
@@ -45,22 +46,20 @@
       </template>
     </a-table>
     <div class="my-5 float-right">
-      <a-button size="large" @click="handleLinkClick('/view_cart')">
+      <a-button size="large" :disable="isPlacingOrder" @click="handleLinkClick('/view_cart')">
         View Cart
       </a-button>
-      <a-button type="primary" size="large" @click="handleCheckOut">
-        Checkout
+      <a-button type="primary" size="large" :loading="isPlacingOrder" @click="handleCheckOut">
+        Place an Order
       </a-button>
     </div>
   </div>
   <div v-else>
     <a-empty />
     <div class="empty-cart">
-      <nuxt-link to="/products">
-        <a-button type="dashed">
-          Expolore Products
-        </a-button>
-      </nuxt-link>
+      <a-button type="dashed" @click="handleLinkClick('/products')">
+        Expolore Products
+      </a-button>
     </div>
   </div>
 </template>
@@ -226,7 +225,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated' }),
+    ...mapGetters({ items: 'cart/items', isAuthenticated: 'auth/isAuthenticated', isPlacingOrder: 'cart/isPlacingOrder' }),
     isItemEmpty () {
       return this.items.length === 0
     },
@@ -291,13 +290,20 @@ export default {
       this.$store.dispatch('cart/removeFromCart', ids)
     },
     handleLinkClick (url) {
+      this.onClose()
       this.$router.push(url)
     },
     handleCheckOut () {
-      if (!this.isAuthenticated) { this.onClose() }
-      setTimeout(() => {
-        this.$store.dispatch('auth/handleOpenAuth', true)
-      }, 200)
+      return this.$store.dispatch('cart/handlePlaceOrder').then((res) => {
+        const { isSuccess } = res
+        if (isSuccess) {
+          this.onClose()
+          this.$router.push('/orders')
+        }
+      })
+      // setTimeout(() => {
+      //   this.$store.dispatch('auth/handleOpenAuth', true)
+      // }, 200)
     }
   }
 

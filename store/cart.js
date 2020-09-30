@@ -1,10 +1,14 @@
+import { handleNotification } from '../utils/helpers'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const SET_CART_MODAL_STATUS = 'SET_CART_MODAL_STATUS'
 const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+const SET_SUBMITTING_ORDER = 'SET_SUBMITTING_ORDER'
+const ON_SUCCESS_EMPTY_CART = ' ON_SUCCESS_EMPTY_CART'
 export const state = {
   items: {},
-  isOpen: false
+  isOpen: false,
+  isSubmitting: false
 }
 
 export const actions = {
@@ -19,6 +23,31 @@ export const actions = {
   },
   changeQuantity ({ commit }, data) {
     commit(CHANGE_QUANTITY, data)
+  },
+  async handlePlaceOrder ({ commit, state }) {
+    let isSuccess
+    commit(SET_SUBMITTING_ORDER, true)
+    try {
+      const items = Object.values(state.items).map((item) => {
+        const { productId, unitCost, quantity, productAttributes = {} } = item
+        return {
+          productId,
+          unitCost,
+          quantity,
+          productAttributes
+        }
+      })
+      const data = await this.$axios.$post('/orders', { items })
+      isSuccess = true
+      commit(ON_SUCCESS_EMPTY_CART, data)
+    } catch (err) {
+      const { data: { error, message } } = err.response || { data: { message: err.message, error: 'Error' } }
+      handleNotification({ text: message, title: error })
+      isSuccess = false
+    } finally {
+      commit(SET_SUBMITTING_ORDER, false)
+    }
+    return { isSuccess }
   }
 }
 
@@ -77,5 +106,6 @@ export const mutations = {
 
 export const getters = {
   items: state => Object.values(state.items),
-  isCartOpen: state => state.isOpen
+  isCartOpen: state => state.isOpen,
+  isPlacingOrder: state => state.isSubmitting
 }

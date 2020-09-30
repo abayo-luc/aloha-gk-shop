@@ -2,12 +2,12 @@
   <main class="container-fuied product-page">
     <product-component :product="product" />
     <product-review :product="product" />
-    <div class="main_title mt-5">
+    <!-- <div class="main_title mt-5">
       <h2 class="text-center">
         Related Products
       </h2>
-    </div>
-    <related-products />
+    </div> -->
+    <!-- <related-products /> -->
   </main>
 </template>
 
@@ -15,12 +15,12 @@
 import { mapGetters } from 'vuex'
 import ProductComponent from '../../components/Product/Product.vue'
 import ProductReview from '../../components/Product/ProductReview.vue'
-import RelatedProducts from '../../components/Carousel/RelatedProduct.vue'
+// import RelatedProducts from '../../components/Carousel/RelatedProduct.vue'
 export default {
   components: {
     ProductComponent,
-    ProductReview,
-    RelatedProducts
+    ProductReview
+    // RelatedProducts
   },
   computed: {
     ...mapGetters({ product: 'products/one' })

@@ -1,49 +1,68 @@
 <template>
-  <div class="container my-5">
+  <div class="container ">
+    <div class="mt-md-5 mb-md-3">
+      <a-descriptions title="Order Info">
+        <a-descriptions-item label="Refered ID">
+          {{ order.ireference }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Names">
+          {{ customer.names }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Telephone">
+          {{ customer.phone }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Status">
+          <a-tag
+            :color="orderColor"
+          >
+            {{ order.status }}
+          </a-tag>
+        </a-descriptions-item>
+        <a-descriptions-item label="Customer Address">
+          {{ order.hippingAddress || customer.address || 'N/A' }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Shipping Address">
+          {{ order.hippingAddress || 'N/A' }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Ordered Date">
+          {{ getDate(order.createdAt) }}
+        </a-descriptions-item>
+        <a-descriptions-item label="Shipping Date">
+          {{ getDate(order.shippedOn) || 'N/A' }}
+        </a-descriptions-item>
+      </a-descriptions>
+    </div>
     <a-table
       :columns="columns"
-      :data-source="items"
-      :row-key="record => record.productId"
+      :data-source="order.items"
+      :row-key="record => record.id"
       :pagination="false"
+      :loading="isFetching"
     >
-      <a-button
-        slot="action"
+      <nuxt-link
+        slot="name"
         slot-scope="_, record"
-        type="primary"
-        shape="circle"
-        icon="delete"
-        @click="handleDelete(record)"
-      />
+        :to="`/products/${getProduct(record).id}`"
+      >
+        <span>{{ getProduct(record).name }}</span>
+      </nuxt-link>
       <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
         {{ getProductDescription(record) }}
         <br>
-        <span
-          v-for="c in record.product.categories"
-          :key="c.id"
-          class="badge badge-pill badge-light"
-        >
-          {{ c.name }}
-        </span>
       </p>
-      <div slot="quantity" slot-scope="quantity, record">
-        <a-input-number
-          size="small"
-          :min="1"
-          :max="100000"
-          :default-value="quantity"
-          class="quantity-input"
-          @change="qty => onChangeQuantity(qty, record)"
-        />
-      </div>
-      <div slot="image" slot-scope="_, record">
+      <nuxt-link
+        slot="image"
+        slot-scope="_, record"
+        :to="`/products/${getProduct(record).id}`"
+      >
         <img
           :src="getImageUrl(record)"
           alt=""
           class="img-fluid rounded shadow-sm"
         >
-      </div>
+      </nuxt-link>
     </a-table>
-    <div v-if="items.length > 0" class="box_cart">
+    <div class="box_cart">
       <div class="container">
         <div class="row justify-content-end">
           <div class="col-xl-4 col-lg-4 col-md-6">
@@ -54,13 +73,8 @@
               </li>
               <li><span>Total</span> {{ totalSum }} <small>Rwf</small></li>
             </ul>
-            <a-button
-              type="primary"
-              block
-              :loading="isPlacingOrder"
-              @click="handlePlaceOrder"
-            >
-              Proceed to Checkout
+            <a-button type="primary" block>
+              Request Order Update Info
             </a-button>
           </div>
         </div>
@@ -70,14 +84,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { formatCurrency, formatDate } from '../../utils/helpers'
 export default {
   middleware: 'authenticated',
-  props: {
-    showLoginModal: {
-      type: Function,
-      required: true
-    }
-  },
   data () {
     return {
       shippingFee: 1000,
@@ -93,7 +102,8 @@ export default {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',
-          customRender: (_, record) => record.product.name
+          scopedSlots: { customRender: 'name' }
+          //   customRender: (_, record) => record.product.name
         },
         {
           title: 'PRICE',
@@ -103,7 +113,7 @@ export default {
             const { unitCost } = record
             return (
               <div class="row ">
-                {new Intl.NumberFormat('en').format(unitCost)}
+                {formatCurrency(unitCost)}
                 <span class="small currency">Rwf</span>
               </div>
             )
@@ -125,7 +135,7 @@ export default {
             const { quantity, unitCost } = record
             return (
               <div class="row ">
-                {new Intl.NumberFormat('en').format(quantity * unitCost)}
+                {formatCurrency(quantity * unitCost)}
                 <span class="small currency">Rwf</span>
               </div>
             )
@@ -142,24 +152,35 @@ export default {
   },
   computed: {
     ...mapGetters({
-      items: 'cart/items',
-      isPlacingOrder: 'cart/isPlacingOrder'
+      isFetching: 'orders/isFetching',
+      order: 'orders/oneOrder'
     }),
     subTotal () {
-      const sum = this.items.reduce((prev, current) => {
-        return prev + current.unitCost * current.quantity
-      }, 0)
-      return new Intl.NumberFormat('en').format(sum)
+      return formatCurrency(this.order.subTotal)
     },
     deliverFee () {
-      return new Intl.NumberFormat('en').format(this.shippingFee)
+      return formatCurrency(this.order.deliveryFee)
     },
     totalSum () {
-      const sum = this.items.reduce((prev, current) => {
-        return prev + current.unitCost * current.quantity
-      }, this.shippingFee)
-      return new Intl.NumberFormat('en').format(sum)
+      return formatCurrency(this.order.totalAmount)
+    },
+    orderColor () {
+      switch (this.order.status) {
+        case 'ordered':
+          return 'green'
+        case 'cancelled':
+          return 'volcano'
+        default:
+          return '#ccc'
+      }
+    },
+    customer () {
+      return this.order?.customer || {}
     }
+  },
+  mounted () {
+    const { id } = this.$route.params
+    this.$store.dispatch('orders/fetchOne', id)
   },
   methods: {
     onChangeQuantity (quantity, record) {
@@ -177,13 +198,14 @@ export default {
     handleDelete (record) {
       this.$store.dispatch('cart/removeFromCart', [record.productId])
     },
-    handlePlaceOrder () {
-      return this.$store.dispatch('cart/handlePlaceOrder').then((res) => {
-        const { isSuccess } = res
-        if (isSuccess) {
-          this.$router.push('/orders')
-        }
-      })
+    getProduct (record) {
+      return record.product || {}
+    },
+    getDate (date) {
+      if (date) {
+        return formatDate(date)
+      }
+      return null
     }
   }
 }

@@ -1,3 +1,5 @@
+import { handleNotification, notifiableError } from '../utils/helpers'
+
 const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
 
 export const state = {
@@ -11,8 +13,9 @@ export const actions = {
         progress: true
       })
       commit(SET_ALL_CATEGORIES, data || [])
-    } catch (error) {
-      alert(error.message)
+    } catch (err) {
+      const { error: title, message: text } = notifiableError(err)
+      handleNotification({ title, text })
     }
   }
 }

@@ -1,3 +1,5 @@
+import { handleNotification, notifiableError } from '../utils/helpers'
+
 const SET_ALL_PRODUCTS = 'SET_ALL_PRODUCTS'
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCTS'
 const SET_IS_LOADING = 'SET_IS_LOADING'
@@ -25,9 +27,10 @@ export const actions = {
         { params: data }
       )
       commit(SET_ALL_PRODUCTS, { rows, count })
-    } catch (error) {
+    } catch (err) {
+      const { error: title, message: text } = notifiableError(err)
+      handleNotification({ title, text })
       commit(SET_IS_LOADING)
-      alert(error.message)
     }
   },
   async fetchSingleProduct ({ commit }, id) {
@@ -36,8 +39,9 @@ export const actions = {
         progress: true
       })
       commit(SET_SINGLE_PRODUCT, response?.data || {})
-    } catch (error) {
-      alert(error.message)
+    } catch (err) {
+      const { error: title, message: text } = notifiableError(err)
+      handleNotification({ title, text })
     }
   }
 }
