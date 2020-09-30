@@ -52,9 +52,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ products: 'products/all', pages: 'products/pages', isFetching: 'products/isFetching' })
+    ...mapGetters({ products: 'products/all', pages: 'products/pages', isFetching: 'products/isFetching' }),
+    urlParams () {
+      return this.$route.query.categoryId
+    }
   },
-  beforeMount () {
+  watch: {
+    urlParams: {
+      handler (a, b) {
+        this.fetchData()
+      }
+    }
+  },
+  mounted () {
     this.fetchData()
   },
 

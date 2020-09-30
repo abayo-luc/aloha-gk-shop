@@ -62,6 +62,12 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'SignupForm',
+  props: {
+    handleModalShow: {
+      type: Function,
+      required: true
+    }
+  },
   computed: {
     ...mapGetters({ isAuthenticating: 'auth/isAuthenticating', errors: 'auth/regErrors' })
   },
@@ -73,9 +79,15 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          this.$store.dispatch('auth/handleRegistration', values)
+          this.$store.dispatch('auth/handleRegistration', values).then((res) => {
+            const { isSuccess } = res
+            if (isSuccess) { this.handleLoginShow() }
+          })
         }
       })
+    },
+    handleLoginShow () {
+      this.handleModalShow('login', 'User Login', 'Login')
     }
   }
 }

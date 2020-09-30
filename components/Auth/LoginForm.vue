@@ -13,22 +13,24 @@
         ]"
         placeholder="email"
       >
-        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+        <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
     </a-form-item>
     <a-form-item
-      :validate-status=" errors.password || errors.message? 'error' : undefined "
+      :validate-status="errors.password || errors.message ? 'error' : undefined"
       :help="errors.password || errors.message"
     >
       <a-input
         v-decorator="[
           'password',
-          { rules: [{ required: true, message: 'Please input your Password!' }] },
+          {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          },
         ]"
         type="password"
         placeholder="Password"
       >
-        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+        <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
     </a-form-item>
     <a-form-item>
@@ -43,11 +45,20 @@
       >
         Remember me
       </a-checkbox>
-      <a class="login-form-forgot" href="">
-        Forgot password
-      </a>
-      <a-button type="primary" html-type="submit" class="login-form-button" :loading="isAuthenticating">
+      <a class="login-form-forgot" href=""> Forgot password </a>
+      <a-button
+        type="primary"
+        html-type="submit"
+        class="login-form-button"
+        :loading="isAuthenticating"
+      >
         Log in
+      </a-button>
+      <div class="text-center">
+        <span>Or</span>
+      </div>
+      <a-button type="link" block @click="handleRegisterNow">
+        register now!
       </a-button>
     </a-form-item>
   </a-form>
@@ -56,8 +67,21 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  props: {
+    handleClose: {
+      type: Function,
+      required: true
+    },
+    handleModalShow: {
+      type: Function,
+      required: true
+    }
+  },
   computed: {
-    ...mapGetters({ isAuthenticating: 'auth/isAuthenticating', errors: 'auth/errors' })
+    ...mapGetters({
+      isAuthenticating: 'auth/isAuthenticating',
+      errors: 'auth/errors'
+    })
   },
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
@@ -67,9 +91,15 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          this.$store.dispatch('auth/handleLogin', values)
+          this.$store.dispatch('auth/handleLogin', values).then((res) => {
+            const { isSuccess } = res
+            if (isSuccess) { this.handleClose(isSuccess) }
+          })
         }
       })
+    },
+    handleRegisterNow () {
+      this.handleModalShow('sign-up', 'User Registration', 'Submit')
     }
   }
 }

@@ -11,7 +11,7 @@
                 </a>
                 <a-menu slot="overlay">
                   <a-menu-item v-for="category in categories" :key="category.id">
-                    <nuxt-link :to="`/products?category=${category.name}`">
+                    <nuxt-link :to="`/products?categoryId=${category.id}`">
                       {{ category.name }}
                     </nuxt-link>
                   </a-menu-item>
@@ -28,7 +28,7 @@
                 <a-button type="default" class="search-button float-right" icon="search" @click="showSearch" />
               </div>
 
-              <div class="col-3">
+              <div v-if="!isCart" class="col-3">
                 <a-badge :count="totalInCart" :offset="[-2,10]" class="float-right">
                   <a-button shape="circle" type="dashed" icon="shopping-cart" @click="showDrawer" />
                 </a-badge>
@@ -54,7 +54,7 @@
       :z-index="9999999"
       @close="closeDrawer"
     >
-      <shopping-cart :items="items" :on-close="closeDrawer" />
+      <shopping-cart :items="items" :on-close="closeDrawer" :show-login-modal="showLoginModal" />
     </a-drawer>
   </div>
 </template>
@@ -66,6 +66,12 @@ export default {
   components: {
     ShoppingCart
   },
+  props: {
+    showLoginModal: {
+      type: Function,
+      required: true
+    }
+  },
   data () {
     return {
       drawerVisible: this.isOpen,
@@ -74,9 +80,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ categories: 'categories/all', items: 'cart/items', isOpen: 'cart/isCartOpen' }),
+    ...mapGetters({ categories: 'categories/all', items: 'cart/items', isOpen: 'cart/isCartOpen', isAuthenticated: 'auth/isAuthenticated' }),
     totalInCart () {
       return this.items.length
+    },
+    isCart () {
+      return ['view_cart', 'login', 'register'].includes(this.$route.name)
     }
   },
   mounted () {

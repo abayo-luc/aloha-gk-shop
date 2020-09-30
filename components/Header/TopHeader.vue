@@ -11,23 +11,23 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <a-button v-if="!isAuthenticated" icon="login" class="mr-md-2 my-1" @click="showModal('login', 'User Login', 'Login')">
+          <a-button v-if="!isAuthenticated" icon="login" class="mr-md-2 my-1" @click="showAuthModel('login', 'User Login', 'Login')">
             Login
           </a-button>
 
           <a-dropdown v-else :trigger="['click', 'hover']">
             <a-avatar style="color: #f56a00; backgroundColor: #fde3cf">
-              {{ user.names || 'U' }}
+              {{ getNameInitials || 'U' }}
             </a-avatar>
             <a-menu slot="overlay">
               <a-menu-item key="0">
-                <nuxt-link to="http://www.alipay.com/">
+                <nuxt-link to="/profile">
                   Profile
                 </nuxt-link>
               </a-menu-item>
               <a-menu-item key="1">
-                <nuxt-link to="http://www.taobao.com/">
-                  Orders
+                <nuxt-link to="/orders">
+                  My Orders
                 </nuxt-link>
               </a-menu-item>
               <a-menu-divider />
@@ -38,7 +38,7 @@
               </a-menu-item>
             </a-menu>
           </a-dropdown>
-          <a-button v-if="!isAuthenticated" ghost icon="user-add" class="my-1" @click="showModal('sign-up', 'User Registration', 'Submit')">
+          <a-button v-if="!isAuthenticated" ghost icon="user-add" class="my-1" @click="showAuthModel('sign-up', 'User Registration', 'Submit')">
             Register
           </a-button>
         </b-navbar-nav>
@@ -52,8 +52,8 @@
       :footer="null"
       @ok="handleOk"
     >
-      <login-form v-if="openedModal === 'login'" />
-      <signup-form v-if="openedModal === 'sign-up'" />
+      <login-form v-if="openedModal === 'login'" :handle-close="handleOk" :handle-modal-show="showAuthModel" />
+      <signup-form v-if="openedModal === 'sign-up'" :handle-modal-show="showAuthModel" />
     </a-modal>
   </div>
 </template>
@@ -77,22 +77,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', isVisible: 'auth/isLoginOpen', user: 'auth/currentUser' })
+    ...mapGetters({ isAuthenticated: 'auth/isAuthenticated', isVisible: 'auth/isLoginOpen', user: 'auth/currentUser' }),
+    getNameInitials () {
+      return this.user?.names?.split('')[0]
+    }
   },
-  // watch: {
-  //   isVisible: {
-  //     get (params) {
-  //       return this.visible
-  //     },
-  //     set  (newVal) {
-  //       console.log(newVal, '>>>>>>>>>>>>>>>>>>')
-  //       this.visible = newVal
-  //     }
-  //   }
-  // },
   methods: {
-    showModal (value, title, buttonTitle) {
-      // this.$store.dispatch('auth/handleOpenAuth', true)
+    showAuthModel (value, title, buttonTitle) {
       this.visible = true
       this.openedModal = value
       this.modalTitle = title
@@ -102,7 +93,6 @@ export default {
       this.visible = false
     },
     handleCancel (e) {
-      // this.$store.dispatch('auth/handleOpenAuth', false)
       this.visible = false
     },
     onLogout () {

@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters({ products: 'products/all' })
   },
-  beforeMount () {
+  mounted () {
     this.$store.dispatch('products/fetchAll')
   }
 
