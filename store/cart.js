@@ -92,15 +92,11 @@ export const mutations = {
       }
     }
   },
-  [REMOVE_FROM_CART] (state, ids) {
-    const newItems = { ...state.items }
-    ids.forEach((id) => {
-      delete newItems[id]
-    })
-    state.items = { ...newItems }
+  [SET_SUBMITTING_ORDER] (state, status) {
+    state.isSubmitting = status
   },
-  [SET_CART_MODAL_STATUS] (state, status) {
-    state.isOpen = status
+  [ON_SUCCESS_EMPTY_CART] (state, data) {
+    state.items = {}
   }
 }
 
