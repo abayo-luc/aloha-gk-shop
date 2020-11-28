@@ -1,8 +1,8 @@
 <template>
   <div class="main_title mt-5 mb-5">
-    <h2>Top Selling</h2>
+    <!-- <h2>Top Selling</h2> -->
     <span>Products</span>
-    <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+    <!-- <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p> -->
   </div>
 </template>
 

@@ -1,45 +1,45 @@
 <template>
   <div class="tab_content_wrapper">
     <div class="container">
-      <a-tabs default-active-key="1" @change="callback">
-        <a-tab-pane key="1" tab="Description">
-          <div class="card-body">
-            <div class="row justify-content-between">
-              <div class="col-lg-6">
-                <h3>Details</h3>
-                <a-skeleton v-if="isLoading" active />
-                <div v-else v-html="product.fullDescription" />
-              </div>
-              <div class="col-lg-5">
-                <h3>Specifications</h3>
-                <div class="table-responsive">
-                  <table class="table table-sm table-striped">
-                    <tbody>
-                      <tr>
-                        <td><strong>Color</strong></td>
-                        <td>Blue, Purple</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Size</strong></td>
-                        <td>150x100x100</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Weight</strong></td>
-                        <td>0.6kg</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Manifacturer</strong></td>
-                        <td>Manifacturer</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /table-responsive -->
-              </div>
-            </div>
+      <!-- <a-tabs default-active-key="1" @change="callback"> -->
+      <!-- <a-tab-pane key="1" tab="Description"> -->
+      <div class="card-body">
+        <div class="row justify-content-between">
+          <div class="col-lg-6">
+            <h3>Details</h3>
+            <a-skeleton v-if="isLoading" active />
+            <div v-else v-html="product.fullDescription" />
           </div>
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="Review" force-render>
+          <div class="col-lg-5">
+            <h3>Specifications</h3>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped">
+                <tbody>
+                  <tr>
+                    <td><strong>Color</strong></td>
+                    <td>Blue, Purple</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Size</strong></td>
+                    <td>150x100x100</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Weight</strong></td>
+                    <td>0.6kg</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Manifacturer</strong></td>
+                    <td>Manifacturer</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /table-responsive -->
+          </div>
+        </div>
+      </div>
+      <!-- </a-tab-pane> -->
+      <!-- <a-tab-pane key="2" tab="Review" force-render>
           <div class="card-body">
             <div class="row justify-content-between">
               <div v-for="review in product.reviews" :key="review.id" class="col-lg-6">
@@ -64,8 +64,8 @@
               </a-button>
             </div>
           </div>
-        </a-tab-pane>
-      </a-tabs>
+        </a-tab-pane> -->
+      <!-- </a-tabs> -->
       <!-- /tab-content -->
     </div>
     <!-- /container -->
@@ -98,6 +98,7 @@ export default {
 .tab_content_wrapper {
     background-color: #f8f8f8;
     padding: 60px 0 35px 0;
+    margin-top: 6rem;
 }
 .card-body h3 {
     font-size: 18px;

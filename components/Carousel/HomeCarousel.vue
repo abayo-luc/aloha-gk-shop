@@ -1,6 +1,6 @@
 <template>
   <a-carousel autoplay>
-    <div v-for="(carousel, index) in carousels" :key="carousel.key" class="owl-slide cover" :style="{backgroundImage: `url(${carousel.image})`}">
+    <div v-for="(carousel, index) in carousels" :key="carousel.key" class="owl-slide cover" :style="{backgroundImage: `url(${carousel.image})`, backgroundSize:'container'}">
       <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
         <div class="container">
           <div
@@ -46,35 +46,35 @@ export default {
     return ({
       carousels: [
         {
-          image: 'https://images.unsplash.com/photo-1532211387405-12202cb81d7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          image: 'https://res.cloudinary.com/dvkcmubck/image/upload/v1606558052/aloha-gk/table_kvblhk.png',
           description: 'Limited items available at this price',
           title: 'Attack Air',
           meta: 'Max 720 Sage Low',
           key: 'car-1'
         },
         {
-          image: 'https://images.unsplash.com/photo-1496661415325-ef852f9e8e7c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1999&q=80',
+          image: 'https://res.cloudinary.com/dvkcmubck/image/upload/v1606557964/aloha-gk/bottle_npbh5i.png',
           description: 'Limited items available at this price',
           title: 'Attack Air',
           meta: 'Max 720 Sage Low',
           key: 'car-2'
         },
         {
-          image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80',
+          image: 'https://res.cloudinary.com/dvkcmubck/image/upload/v1606557721/aloha-gk/t-shirt_tuae53.png',
           description: 'Limited items available at this price',
           title: 'Attack Air',
           meta: 'Max 720 Sage Low',
           key: 'car-3'
         },
         {
-          image: 'https://images.unsplash.com/photo-1496857239036-1fb137683000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          image: 'https://res.cloudinary.com/dvkcmubck/image/upload/v1606558463/aloha-gk/cup_tz1fps.png',
           description: 'Limited items available at this price',
           title: 'Attack Air',
           meta: 'Max 720 Sage Low',
           key: 'car-4'
         },
         {
-          image: 'https://images.unsplash.com/photo-1452827073306-6e6e661baf57?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80',
+          image: 'https://res.cloudinary.com/dvkcmubck/image/upload/v1606558204/aloha-gk/notebook_ycsqyt.png',
           description: 'Limited items available at this price',
           title: 'Attack Air',
           meta: 'Max 720 Sage Low',
@@ -99,9 +99,9 @@ export default {
 .owl-slide {
   height: 450px;
   position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain  !important;
 }
 
 .opacity-mask {

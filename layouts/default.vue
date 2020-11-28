@@ -61,7 +61,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content{
-  margin-bottom: 384px;
+  // margin-bottom: 384px;
   background-color: #fff;
 }
 @media  (max-width: 767px) {
