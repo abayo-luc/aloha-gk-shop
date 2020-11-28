@@ -9,35 +9,41 @@
 
           <div id="collapse_1" class="collapse dont-collapse-sm links">
             <ul>
-              <li><a href="about.html">About us</a></li>
-              <li><a href="help.html">Faq</a></li>
-              <li><a href="help.html">Help</a></li>
-              <li><a href="contacts.html">Contacts</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Faq</a></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Contacts</a></li>
             </ul>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-          <h3 data-target="#collapse_2">
-            Categories <a-icon type="down" class="d-block d-md-none float-right" />
-          </h3>
-          <div id="collapse_2" class="collapse dont-collapse-sm links">
-            <ul>
-              <li><a href="listing-grid-1-full.html">Category 1</a></li>
-              <li><a href="listing-grid-2-full.html">Category 2</a></li>
-              <li><a href="listing-grid-1-full.html">Category 3</a></li>
-              <li><a href="listing-grid-3.html">Category 4</a></li>
-            </ul>
-          </div>
-        </div>
+
         <div class="col-lg-3 col-md-6">
           <h3 data-target="#collapse_3">
             Contacts <a-icon type="down" class="d-block d-md-none float-right" />
           </h3>
           <div id="collapse_3" class="collapse dont-collapse-sm contacts">
             <ul>
-              <li><a-icon type="home" />KG 200 St 13<br>Kigali - Rwanda</li>
-              <li><a-icon type="phone" />+250 780 000 000</li>
-              <li><a-icon type="mail" /><a href="#0">info@alohagk.com</a></li>
+              <li><a-icon type="home" />Kigali - Rwanda</li>
+              <li><a-icon type="phone" />+250782251195</li>
+              <li><a-icon type="mail" /><a href="#0">Alohagk3@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h3 data-target="#collapse_2">
+            Follow Us
+          </h3>
+          <div id="collapse_2" class="collapse dont-collapse-sm links">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="https://m.facebook.com/Aloha-GK-112374667233949/"><a-icon type="facebook" /></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://twitter.com/aloha_gk"><a-icon type="twitter" /></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#0"><a-icon type="instagram" /></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -54,27 +60,14 @@
                 </div>
               </div>
             </div>
-            <div class="follow_us">
-              <h5>Follow Us</h5>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <a href="#0"><a-icon type="facebook" /></a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#0"><a-icon type="twitter" /></a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#0"><a-icon type="instagram" /></a>
-                </li>
-              </ul>
-            </div>
+            <div class="follow_us" />
           </div>
         </div>
       </div>
       <!-- /row-->
       <hr>
       <div class="row add_bottom_25">
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <ul class="footer-selector clearfix">
             <li>
               <img
@@ -87,12 +80,12 @@
               >
             </li>
           </ul>
-        </div>
+        </div> -->
         <div class="col-lg-6">
           <ul class="additional_links">
-            <li><a href="#0">Terms and conditions</a></li>
-            <li><a href="#0">Privacy</a></li>
-            <li><span>© 2020 Allaia</span></li>
+            <!-- <li><a href="#0">Terms and conditions</a></li>
+            <li><a href="#0">Privacy</a></li> -->
+            <li><span>© {{ new Date().getFullYear() }} Aloha GK</span></li>
           </ul>
         </div>
       </div>

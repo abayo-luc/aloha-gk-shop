@@ -31,7 +31,7 @@
           </p>
 
           <div class="prod_options">
-            <div class="row">
+            <!-- <div class="row">
               <label class="col-md-6 col-6 pt-0"><strong>Color</strong></label>
               <div class="col-md-6 col-6 colors">
                 <ul>
@@ -57,7 +57,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <label class="col-md-6 col-6"><strong>Size</strong> - Size Guide <a href="#0" data-toggle="modal" data-target="#size-modal"><i class="ti-help-alt" /></a></label>
               <div class="col-md-5 col-6 my-2">
